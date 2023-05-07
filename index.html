@@ -9,230 +9,28 @@
         <!-- <script src="eight_two.js"></script> -->
         <script src="radar.js"></script>
         <script src="data_inject.js"></script>
+        <script src="fill_option.js"></script>
         <title>TEST Spider chart</title>
     </head>
     <body>
         <header id="top">
-            <h1>Task 8.2 Choropleth Demo Page</h1>
-            <p class="caption">Student 103496628 - Tung Duc Nguyen</p>
+            <h1>Internal Displacement Population by Top 100 Countries - Global vs Australia</h1>
+            <!-- <h2></h2> -->
+            <p class="caption">Data period: 2008 - 2021</p>
         </header>
-        <input type="text" id="valueInput">
-        <button onclick="addValue()">Add Value</button>
-        <div id="viz"></div>
+        <script>DrawData();</script>
+        <label for="valueInput">First Country</label>
+        <select id="valueInput" onchange="addValue()"></select>
+        
+        <br/>
+        <label for="valueInput2">Second Country</label>
+        <select id="valueInput2" onchange="addValue2()"></select>
+        
+        
+        <svg id="viz"></svg>
         <br/>
         
         // code section
-        <script>
-            let country_filter = ["Australia"];
-            DrawData();
-            function addValue() {
-                var input = document.getElementById("valueInput");
-                var value = input.value;
-                country_filter.push(value);
-                input.value = "";
-                UpdateData();
-            }
-
-            function DrawData() {
-            // test data injection
-                inject_data("./conformed_spider_2.csv").then((data)=> {
-                    // ---------------- THE FEATURES ------------------------
-                    // get a list of features (should be the same every time). This will be used for the spider chart
-                    let cat_features = Object.keys(data[0]);
-                    // remove the first two keys "Country" and "Year", you'll have the categories
-                    cat_features.splice(0, 1);
-                    
-
-                    // ---------------- THE FILTER -------------------------
-                    // filter by provided metrics
-                    //please also write unmatched condition for these ones as well
-                    let byCountry_data = [];
-                    for (var i = 0; i < country_filter.length; i++) {
-                        let this_country = data.filter( function(a) { return a["Country"] === country_filter[i] } )[0]
-                        delete this_country["Country"];                          // again, trim the first category
-                        byCountry_data.push(this_country);  // only the first one heeh
-                    }
-                    
-                    
-                    // -------------------- THE DATA ------------------------
-                    
-                    console.log(byCountry_data);
-                    
-                    // uncomm from here
-                    // ---------------------------------------------------------------------------
-                    // ------------- THE MAXIMUM VALUE OF ALL HAHAHAHAHAHAHHA --------------------
-                    // ---------------------------------------------------------------------------
-
-                    // I use reduce() function to take out the maximum value of number of Internally Displaced People (IDP) at all-time period
-                    var max_val = cat_features.reduce( function(max, feature) {
-
-                        let max_here = d3.max(byCountry_data, (d) => d[feature]);
-                        if (max_here > max) { return max_here;}
-                        else { return max;}
-                    }, 0)
-                    
-                    console.log(max_val);   // make sure I got that right
-
-
-                    // -------------------------------------------------------
-                    // ---------- LET'S START DRAWING AHAHAHHAHA -------------
-                    // -------------------------------------------------------
-                    
-
-
-                    // svg moment?
-                    let width = 800;
-                    let height = 650;
-                    let svg = d3.select("#viz")
-                                .append("svg")
-                                .attr("width", width)
-                                .attr("height", height);
-                                            
-                    let radarScale = d3.scaleLinear()
-                                        .domain([0, max_val]).nice()
-                                        .range([0, 250])
-                                        .clamp(false);
-                                        
-                    // now, to generate the number of TICKS
-                    function tickGen(min, max, num) {
-                        let ticks = [];
-                        let tick_val = (max - min) / (num - 1);
-                        
-                        for (let i = 0; i < num; i++) {
-                            ticks.push(Math.ceil(min + (tick_val * i)));        // Round it up 
-                        }
-                        return ticks;
-                        
-                    }
-
-                    // use the maximum value generated above to generate the number of ticks
-                    let ticks = tickGen(0, max_val, 5);
-                    // let ticks = [0, 25688, 51375, 77063, 102750];
-
-                    // console.log(ticks); // I GOT THE TICKS
-
-                    svg.selectAll("circle")
-                        .data(ticks)
-                        .enter()
-                        .append("circle")
-                        .attr("cx", width / 2)
-                        .attr("cy", height / 2)
-                        .attr("fill", "none")
-                        .attr("stroke", "gray")
-                        .attr("r", (d) => radarScale(d));
-        
-                    // let's add the ticklabels
-                    svg.selectAll(".ticklabel")
-                        .data(ticks)
-                        .enter()
-                        .append("text")
-                        .attr("class", "ticklabel")
-                        .attr("text-anchor", "middle")
-                        .attr("opacity", "0.2")
-                        .attr("x", width / 2 + 5)
-                        .attr("y", (d) => height / 2 - radarScale(d) - 5)
-                        .text((d) => d.toString());
-                    
-                    function angToCoor(angle, value){
-                        let x = Math.cos(angle) * radarScale(value);
-                        let y = Math.sin(angle) * radarScale(value);
-                        return [width / 2 + x, height / 2 - y];
-                    }
-
-
-                    // creating the grids
-                    let featureData = cat_features.map((f, i) => {
-                        let angle = (Math.PI / 2) - (2 * Math.PI * i / cat_features.length);
-                        return {
-                            "name": f,
-                            "angle": angle,
-                            "coord": angToCoor(angle, max_val),
-                            "label_coord": angToCoor(angle, max_val + max_val*0.12)
-                        };
-                    });
-                    
-                    // // // console.log(featureData);
-
-                    // draw axis time
-                    svg.selectAll("line")
-                        .data(featureData)
-                        .enter()
-                        .append("line")
-                        .attr("x1", width / 2)
-                        .attr("y1", height / 2)
-                        .attr("x2", d => d.coord[0])
-                        .attr("y2", d => d.coord[1])
-                        .attr("stroke","black");
-            
-                    // draw axis label
-                    svg.selectAll(".axislabel")
-                        .data(featureData)
-                        .enter()
-                        .append("text")
-                        .attr("text-anchor", "middle")
-                        .attr("x", d => d.label_coord[0])
-                        .attr("y", d => d.label_coord[1])
-                        .text(d => d.name)
-                        .style("font-weight", "bold")
-                        .style("font-size", "20px");
-
-                    let line = d3.line();
-                    
-                    
-                    // console.log(cat_features);
-                    
-                    let colors = ["blue", "green", "red","blue", "green", "red", "blue", "green", "red",];
-
-                    function getPathCoordinates(data_point){
-                        let coordinates = [];
-                        for (var i = 0; i < cat_features.length; i++){
-                            let ft_name = cat_features[i];
-                            let angle = (Math.PI / 2) - (2 * Math.PI * i / cat_features.length);
-                            coordinates.push(angToCoor(angle, data_point[ft_name]));
-                        }
-                        coordinates.push(coordinates[0]);
-                        return coordinates;
-                    }
-
-                    // console.log(byCountry_data);
-                    
-
-                    svg.selectAll("path")
-                        .data(byCountry_data)
-                        .enter()
-                        .append("path")
-                        .datum(d => getPathCoordinates(d))
-                        .attr("d", line)
-                        .attr("stroke-width", 3)
-                        .attr("stroke", (_, i) => colors[i])
-                        .attr("fill", (_, i) => colors[i])
-                        .attr("fill-opacity", 0.25)
-                        .attr("stroke-opacity", 1);
-                    svg.selectAll(".legends")
-                        .data(byCountry_data)
-                        .enter()
-                        .append("text")
-                        .attr("class", "legends")
-                        .attr("x", 10)
-                        .attr("y", (_, i) => 30*(i+1))
-                        .attr("fill",(_, i) => colors[i])
-                        .text((d, i) => country_filter[i])
-                        .attr("font-size","24px");
-
-                        
-                });
-                
-                // the whole section is based on a tutorial from 
-                // https://yangdanny97.github.io/blog/2019/03/01/D3-Spider-Chart
-
-        }
-            
-            function UpdateData() {
-
-            }
-            
-
-        </script>
 
 
         <footer>

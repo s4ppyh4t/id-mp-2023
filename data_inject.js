@@ -15,10 +15,11 @@ function inject_data(file_name){
     {
         return {
             "Country": data["Country"],
-            "Geological": parseInt(data.Geological),
-            "Meteorological": parseInt(data["Meteorological"]),
-            "Hydrological": parseInt(data["Hydrological"])
-            
+            "Wildfire": parseFloat(data.Wildfire),
+            "Meteorological": parseFloat(data["Meteorological"]),
+            "Geological": parseFloat(data.Geological),
+            "Flood": parseFloat(data["Flood"]),
+            "Storm": parseFloat(data.Storm)          
         };
     });    
 }
