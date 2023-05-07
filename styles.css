@@ -1,0 +1,90 @@
+html{
+    font-family:monospace;
+    color: rgb(0, 85, 57);
+    font-size:large;
+}
+
+header{
+    padding:0.5vh 10vw;
+}
+
+#main-sec{
+    padding:2vh 10vw;
+}
+
+.centre{
+    text-align: center;
+}
+
+svg{
+    border: 1px black solid;
+    display: block;
+    margin:auto;
+    background-color:rgb(207, 255, 222);
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.boldnice{
+    font-style:italic;
+    font-weight: bold;
+}
+
+header{
+    text-align:left;
+    background-color:aliceblue;
+}
+
+footer{
+    text-align:center;
+    background-color:aliceblue;
+    color:rgb(0, 85, 57);
+}
+
+header h1{
+    font-family:'Courier New', Courier, monospace;
+}
+
+.axis path,
+.axis line {
+    stroke:#061A40;
+    shape-rendering:crispEdges;
+    stroke-width: 2px;
+}
+
+.axis text {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 10px;
+    fill: #061A40;
+}
+
+.pts-title{
+    opacity: 0%;
+    /* border: 1px black solid; */
+    /* background-color: aqua; */
+}
+
+.line {
+    fill: none;
+    stroke: navy;
+    stroke-width: 2;
+    }
+
+
+.annotation {
+    opacity: 0.7;
+}
+
+#annon {
+    fill: #72DDF7;
+    stroke: #72DDF7;
+    stroke-width: 2.5px;
+}
+
+#annon text {
+    fill: #B9D6F2;
+    stroke: none;
+}
