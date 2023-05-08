@@ -43,7 +43,7 @@ let country_filter = ["Australia"];
 
             function DrawData() {
             // test data injection
-                inject_data("./conformed_spider_2.csv").then((data)=> {
+                inject_data("./conformed_spider_1.csv").then((data)=> {
                     // -=============== fill the options in the drop-down -----------
 					// ====================================================----------
 					fill_options(data);
@@ -64,7 +64,7 @@ let country_filter = ["Australia"];
                     for (var i = 0; i < country_filter.length; i++) {
                         let this_country = data.filter( function(a) { return a["Country"] === country_filter[i] } )[0]
                         // delete this_country["Country"];                          // again, trim the first category
-                        byCountry_data.push(this_country);  // only the first one heeh
+                        byCountry_data.push(this_country);  
                     }
 
                     console.table(byCountry_data);
@@ -222,6 +222,7 @@ let country_filter = ["Australia"];
                     };
 
                     let line = d3.line();
+                    // let line = d3.line().curve(d3.curveCardinal);
                     
                     
                     // console.log(cat_features);
@@ -235,7 +236,7 @@ let country_filter = ["Australia"];
                             let angle = (Math.PI / 2) - (2 * Math.PI * i / cat_features.length);
                             coordinates.push(angToCoor(angle, data_point[ft_name]));
                         }
-                        coordinates.push(coordinates[0]);
+                        coordinates.push(coordinates[0]);       // Closing the loop of the path
                         return coordinates;
                     }
 
@@ -298,6 +299,27 @@ let country_filter = ["Australia"];
                             .text((d, i) => country_filter[i])
                             .attr("font-size","24px");
                     }    
+                    function getDotCoordinates() {
+                        dotArray = [];
+                        for (var i = 0; i < byCountry_data.length; i++) {
+                            dotArray.push(...getPathCoordinates(byCountry_data[i]));
+                        }
+
+                        return dotArray;
+                    }
+
+                    console.log(getDotCoordinates());
+                    svg.selectAll(".data-dot")
+                       .data(getDotCoordinates())
+                       .enter()
+                       .append("circle")
+                       .attr("class", "data-dot")
+                       .attr("cx", d => d[0])
+                       .attr("cy", d => d[1])
+                       .attr("r", 5)
+                       .attr("fill", (d,i) => { if (i < 6) {return colors[0];} else {return colors[1]}})
+                       .attr("opacity", 0.5);
+                       
                         
                 });
                 

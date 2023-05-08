@@ -13,11 +13,22 @@
 function inject_data(file_name){
     return d3.csv(file_name, function(data) 
     {
+        // return {
+        //     "Country": data["Country"],
+        //     "Wildfire": parseFloat(data.Wildfire),
+        //     "Meteorological": parseFloat(data["Meteorological"]),
+        //     "Geological": parseFloat(data.Geological),
+        //     "Flood": parseFloat(data["Flood"]),
+        //     "Storm": parseFloat(data.Storm)          
+        // };
         return {
             "Country": data["Country"],
             "Wildfire": parseFloat(data.Wildfire),
-            "Meteorological": parseFloat(data["Meteorological"]),
-            "Geological": parseFloat(data.Geological),
+            "Drought": parseFloat(data["Drought"]),
+            "Extreme temperature": parseFloat(data["Extreme temperature"]),
+            "Volcanic eruption": parseFloat(data["Volcanic eruption"]),
+            "Mass movement": parseFloat(data["Mass movement"]),
+            "Earthquake": parseFloat(data.Earthquake),
             "Flood": parseFloat(data["Flood"]),
             "Storm": parseFloat(data.Storm)          
         };
