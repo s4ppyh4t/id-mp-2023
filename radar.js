@@ -279,7 +279,7 @@ let country_filter = ["Australia"];
                             .enter()
                             .append("path")
                             .datum(d => getPathCoordinates(d))
-                            .transition()
+                            .transition(0.5)
                             .attr("d", line)
                             .attr("stroke-width", 3)
                             .attr("stroke", (_, i) => colors[i])
@@ -292,7 +292,7 @@ let country_filter = ["Australia"];
                             .enter()
                             .append("text")
                             .attr("class", "legends")
-                            .transition()
+                            .transition(0.5)
                             .attr("x", 10)
                             .attr("y", (_, i) => 30*(i+1))
                             .attr("fill",(_, i) => colors[i])
@@ -302,24 +302,49 @@ let country_filter = ["Australia"];
                     function getDotCoordinates() {
                         dotArray = [];
                         for (var i = 0; i < byCountry_data.length; i++) {
-                            dotArray.push(...getPathCoordinates(byCountry_data[i]));
+                            let dataArray = getPathCoordinates(byCountry_data[i]);
+                            dataArray.pop();
+                            dotArray.push(...dataArray);
                         }
-
+                        
+                        console.log(dotArray);
                         return dotArray;
                     }
 
-                    console.log(getDotCoordinates());
-                    svg.selectAll(".data-dot")
-                       .data(getDotCoordinates())
-                       .enter()
-                       .append("circle")
-                       .attr("class", "data-dot")
-                       .attr("cx", d => d[0])
-                       .attr("cy", d => d[1])
-                       .attr("r", 5)
-                       .attr("fill", (d,i) => { if (i < 6) {return colors[0];} else {return colors[1]}})
-                       .attr("opacity", 0.5);
-                       
+                    // console.log(getDotCoordinates());
+                    // =================================================================
+                    // ------------------ draw the dots for visibility -----------------
+                    // -----------------------------------------------------------------
+                    if (country_filter.length > 1) {
+                        svg.selectAll(".data-dot")
+                        .data(getDotCoordinates())
+                        .enter()
+                        .append('circle')
+                        .attr("class", "data-dot")
+                    
+                        svg.selectAll('.data-dot')
+                        .transition()
+                        .attr("cx", d => d[0])
+                        .attr("cy", d => d[1])
+                        .attr("r", 5)
+                        .attr("fill", (d,i) => { if (i < 8) {return colors[0];} else {return colors[1]}})
+                        .attr("opacity", 0.5);
+                    
+                    } else {
+                        
+                        svg.selectAll(".data-dot")
+                           .data(getDotCoordinates())
+                           .enter()
+                           .append("circle")
+                           .attr("class", "data-dot")
+                           .attr("cx", d => d[0])
+                           .attr("cy", d => d[1])
+                           .attr("r", 5)
+                           .attr("fill", (d,i) => { if (i < 8) {return colors[0];} else {return colors[1]}})
+                           .attr("opacity", 0.5);
+                    }
+                    
+                    
                         
                 });
                 
