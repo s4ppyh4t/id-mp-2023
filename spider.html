@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Data Visualisation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style/spider.css">
+        <link rel="stylesheet" href="style/general.css">
+        <link rel="stylesheet" href="style/nav.css">
+        <script src="https://d3js.org/d3.v7.min.js"></script>    
+        <!-- <script src="eight_two.js"></script> -->
+        <script src="script/radar.js"></script>
+        <script src="script/data_inject.js"></script>
+        <script src="script/fill_option.js"></script>
+        <title>TEST Spider chart</title>
+    </head>
+    <body>
+        <header id="top">
+            <h1>DATA VISUALISATION PROJECT - TEAM 11</h1>
+            <!-- <h2></h2> -->
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a class="on-page" href="spider.html">Internal Displacement</a></li>
+                    <li><a href="sankey.html">Australia PR Migration</a></li>
+                </ul>
+            </nav>
+            <br>
+            <h2>Internal Displacement Population by Top 100 Countries - Global vs Australia</h1>
+            <p class="caption">Data period: 2008 - 2021</p>
+            
+
+        </header>
+        <script>DrawData();</script>
+        <label for="valueInput">First Country</label>
+        <select id="valueInput" onchange="addValue()"></select>
+        
+        <br/>
+        <label for="valueInput2">Second Country</label>
+        <select id="valueInput2" onchange="addValue2()"></select>
+        
+        
+        <svg id="viz"></svg>
+        <br/>
+        
+        // code section
+
+
+        <footer>
+            <p class="caption boldnice">COS30045 Data Vis - Final Project</p>
+            <p class="caption">Semester 1 2023</p>
+        </footer>
+        
+    </body>
+</html>

@@ -1,0 +1,43 @@
+html{
+    font-family:monospace;
+    color: rgb(0, 85, 57);
+    font-size:large;
+}
+
+header{
+    padding:0.5vh 10vw;
+}
+
+#main-sec{
+    padding:2vh 10vw;
+}
+
+.centre{
+    text-align: center;
+}
+
+
+.bold{
+    font-weight: bold;
+}
+
+.boldnice{
+    font-style:italic;
+    font-weight: bold;
+}
+
+header{
+    text-align:left;
+    background-color:aliceblue;
+}
+
+footer{
+    text-align:center;
+    background-color:aliceblue;
+    color:rgb(0, 85, 57);
+}
+
+header h1{
+    font-family:'Courier New', Courier, monospace;
+    text-align: center;
+}

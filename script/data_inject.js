@@ -11,7 +11,8 @@
 
 
 function inject_data(file_name){
-    return d3.csv(file_name, function(data) 
+    let f_name = "../data/" + file_name
+    return d3.csv(f_name, function(data) 
     {
         // return {
         //     "Country": data["Country"],
