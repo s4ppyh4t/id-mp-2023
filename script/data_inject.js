@@ -24,6 +24,7 @@ function inject_data(file_name){
         // };
         return {
             "Country": data["Country"],
+            // "Year": data.Year,
             "Wildfire": parseFloat(data.Wildfire),
             "Drought": parseFloat(data["Drought"]),
             "Extreme temperature": parseFloat(data["Extreme temperature"]),

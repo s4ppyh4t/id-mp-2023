@@ -36,7 +36,7 @@
         <div id="sankey-here"></div>
 
         <script>
-            data = d3.csv('test.csv').then((data) => {
+            data = d3.csv('test2.csv').then((data) => {
                 // console.log(data);
                 // console.log(data.length);
                 const dimensions = Object({ height: 500, width: 900, margins: 20 });
@@ -242,7 +242,7 @@
                     .style("mix-blend-mode", "normal")
                     .attr("value", (d) => d.nodeWidth)
                     // .style("text-shadow", ".5px .5px 2px #222")
-                    .style("opacity", (d) => (d.y1 - d.y0 < 30 ? 0 : 1))
+                    .style("opacity", (d) => (d.y1 - d.y0 < 20 ? 0 : 1))
                     // WRAPPING ==============================================
                     .call(wrap);
                 

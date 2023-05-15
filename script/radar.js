@@ -89,7 +89,7 @@ let country_filter = ["Australia"];
                     // -------------------------------------------------------
                     
                     // svg moment?
-                    let width = 600;
+                    let width = 700;
                     let height = 500;
                     let svg = d3.select("#viz")
                                 .attr("width", width)
