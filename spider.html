@@ -7,7 +7,8 @@
         <link rel="stylesheet" href="style/spider.css">
         <link rel="stylesheet" href="style/general.css">
         <link rel="stylesheet" href="style/nav.css">
-        <script src="https://d3js.org/d3.v7.min.js"></script>    
+        <script src="https://d3js.org/d3.v7.min.js"></script> 
+       
         <!-- <script src="eight_two.js"></script> -->
         <script src="script/radar.js"></script>
         <script src="script/data_inject.js"></script>
@@ -21,8 +22,9 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a class="on-page" href="spider.html">Internal Displacement</a></li>
                     <li><a href="sankey.html">Australia PR Migration</a></li>
+                    <li><a class="on-page" href="spider.html">Internal Displacement</a></li>
+                    
                 </ul>
             </nav>
             <br>
@@ -31,17 +33,24 @@
             
 
         </header>
-        <script>DrawData();</script>
-        <label for="valueInput">First Country</label>
-        <select id="valueInput" onchange="addValue()"></select>
+
+        <main id="box">
+            <div id="box2">
+                <p id="selectHeader">Select Country</p>
+                <hr>
+            <label for="valueInput">First Country</label>
+            <select id="valueInput" onchange="addValue()"></select>
+            
+            <br/>
         
-        <br/>
-        <label for="valueInput2">Second Country</label>
-        <select id="valueInput2" onchange="addValue2()"></select>
+            <label for="valueInput2">Second Country</label>
+            <select id="valueInput2" onchange="addValue2()"></select>
+            </div>
+            <script>DrawData();</script>
+            <svg id="viz"></svg>
+            <br/>
+        </main>
         
-        
-        <svg id="viz"></svg>
-        <br/>
         
         // code section
 

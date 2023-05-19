@@ -6,6 +6,9 @@ html{
 
 header{
     padding:0.5vh 10vw;
+    text-align:left;
+    background-color:aliceblue;
+
 }
 
 #main-sec{
@@ -26,18 +29,31 @@ header{
     font-weight: bold;
 }
 
-header{
-    text-align:left;
-    background-color:aliceblue;
-}
 
 footer{
     text-align:center;
     background-color:aliceblue;
     color:rgb(0, 85, 57);
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+      
 }
 
 header h1{
     font-family:'Courier New', Courier, monospace;
-    text-align: center;
+    text-align: left;
+    font-size: 30px;
 }
+#box {
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        background-color: #f0f0f0;
+        border: 1px solid black;
+        padding: 50px;
+}
+

@@ -29,3 +29,6 @@ function disable_choice(choice, id) {
         .filter(function(d) { return d === choice;})
         .attr('disabled', true);
 }
+
+
+
