@@ -12,41 +12,6 @@
     fill: #061A40;
 }
 
-.pts-title{
-    opacity: 0%;
-    /* border: 1px black solid; */
-    /* background-color: aqua; */
-}
-
-.line {
-    fill: none;
-    stroke: navy;
-    stroke-width: 2;
-    }
-
-
-.annotation {
-    opacity: 0.7;
-}
-
-#annon {
-    fill: #72DDF7;
-    stroke: #72DDF7;
-    stroke-width: 2.5px;
-}
-
-#annon text {
-    fill: #B9D6F2;
-    stroke: none;
-}
-
-svg{
-    /* border: 1px black solid; */
-    display: block;
-    margin:auto;
-    /* background-color:rgb(255, 254, 248); */
-}
-
 #valueInput2 {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -54,9 +19,9 @@ svg{
     padding: 10px;
     border-radius: 30px;
     font-size: 16px;
-    width: 200px;
+    width: 60%;
     border: none;
-    background-color: #f2f2f2;
+    background-color: rgb(255, 255, 255);
     transition: background-color 0.3s ease;
     text-align: center;
   }
@@ -72,9 +37,11 @@ svg{
 
 #select-container{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 20%;
     /* border: 1px solid black; */
 }
 
@@ -109,6 +76,7 @@ path:hover{
     opacity: 0;
     transition: left 0.2s;
     pointer-events: none;
+    font-size: 0.9em;
     /* transition: top 0.2s ease; */
 }
 
@@ -120,9 +88,56 @@ table#tooltip-table {
   }
 th, td {
 padding: 8px;
-text-align: center;
+text-align: justify;
 border-bottom: 1px solid #ddd;
 }
 th {
 background-color: #d8d8d8;
 }
+
+/* Here's the bigger flex-box with the title */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+main div{
+    /* border: 1px black solid; */
+    width: 80%;
+}
+
+/* Flex box for organising the view */
+#box {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    /* padding: 2vw; */
+}
+
+#right-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+svg{
+    /* border: 1px black solid; */
+    /* Width and Height attributes need to conform with the svg settings (or rather define it instead) */
+    /* background-color:rgb(255, 254, 248); */
+}
+
+#svg-group {
+    transform: scale(1);
+    transform-origin: center center;
+}
+
+.flex-item {
+    flex: 1;
+}
+

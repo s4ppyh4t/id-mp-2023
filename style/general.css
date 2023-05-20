@@ -1,11 +1,23 @@
 html{
     font-family:monospace;
-    color: rgb(0, 85, 57);
-    font-size:large;
+    color: rgb(0, 0, 0);
+    font-size:medium;
+    background-color: aliceblue;
+}
+
+* {
+    /* border: 1px solid black; */
+}
+
+h2 {
+    margin-bottom: 0; 
 }
 
 header{
     padding:0.5vh 10vw;
+    text-align:left;
+    background-color:aliceblue;
+
 }
 
 #main-sec{
@@ -35,9 +47,13 @@ footer{
     text-align:center;
     background-color:aliceblue;
     color:rgb(0, 85, 57);
+    position:relative;
+    text-align: center;
+    padding: 10px;
+
 }
 
 header h1{
     font-family:'Courier New', Courier, monospace;
-    text-align: center;
+    text-align: left;
 }

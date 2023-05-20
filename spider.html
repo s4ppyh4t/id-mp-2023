@@ -12,11 +12,15 @@
         <script src="script/radar.js"></script>
         <script src="script/data_inject.js"></script>
         <script src="script/fill_option.js"></script>
+        
+        <!-- We would definitely go THIS FAR to get our <select> tag works as we wished -->    
+        <script src="plugins/jquery.min.js"></script>
+        <script src="plugins/select2.min.js"></script>
+        <link href="style/select2.min.css" rel="stylesheet" />
         <title>TEST Spider chart</title>
     </head>
     <body>
         <header id="top">
-            <h1>DATA VISUALISATION PROJECT - TEAM 11</h1>
             <!-- <h2></h2> -->
             <nav>
                 <ul>
@@ -25,29 +29,50 @@
                     <li><a href="sankey.html#sankey-here">Australia PR Migration</a></li>
                 </ul>
             </nav>
-            <br>
-            <h2>Internal Displacement Population by Top 100 Countries - Global vs Australia</h1>
-            <p class="caption">Data period: 2008 - 2021</p>
             
-
+            
         </header>
-        <script>DrawData();</script>
-        <!-- <label for="valueInput">First Country</label>
-        <select id="valueInput" onchange="addValue()"></select> -->
         
-        <br/>
-        <div id="select-container">
-            <label for="valueInput2">Comparison Country</label>
-            <select id="valueInput2" onchange="addValue2()">
-            </select>
-        </div>
+        <br/><br/>
+        
+        <main>              
+            <script>DrawData();</script>
+            <div id="title">
+                <h2>Which country's population is most susceptible to Natural Disaster Displacement? <br/><i style="color: red">Australia</i> vs <i style="color: green" id="cur-country">Country</i></h2>
+                <!-- <p class="caption">Data period: 2008 - 2021. Only shows countries with IDP migration of over 10k people</p> -->
+            </div>
+            <div id="box">
+                <svg class="flex-item" id="viz"><g id="svg-group"></g></svg>
+                <div class="flex-item" id="right-content">
+                    <div class="" id="select-container">
+                        <!-- <button onclick="document.querySelector('#valueInput2').selectedIndex -= 1"><</button> -->
+                        <strong style="text-align: center;" class="flex-item">Country for comparison</strong>
+                        <select class="flex-item, select2" id="valueInput2" onchange="addValue2()">
+                        </select>
+                        <!-- <button onclick="document.querySelector('#valueInput2').selectedIndex += 1">></button> -->
+                    </div>
+
+                    <script>
+                        $(document).ready(function() {
+                          $('.select2').select2();
+                        });
+                    </script>
+                    <div class="flex-item" id="placeholder">
+                        <p>
+                            Internal displacement population migration data provides insights into displacement patterns caused by disasters like floods, earthquakes, mass movements, storms, and wildfires. Analyzing this data helps understand the impacts on different countries. Filtering out countries with over 10,000 displacements allows focus on regions needing immediate attention and support. By ranking countries in different disaster categories based on percentiles, it is possible to identify vulnerable nations and allocate resources effectively.
+                          </p>
+                            Analyzing this data reveals countries most affected by specific disasters. By filtering and ranking, policymakers and stakeholders gain insights to implement targeted measures. This data-driven approach improves disaster response, mitigation, and preparedness, protecting vulnerable populations and building resilient communities.
+                          </p>
+                          
+                    </div>
+                </div>
+            </div>  
+        </main>      
 
         <div id="tooltip" class="tool">tooltip here</div>
         <div id="comp-tooltip" class="tool">compare</div>
         <br/>
         
-        
-        <svg id="viz"></svg>
 
         <footer>
             <p class="caption boldnice">COS30045 Data Vis - Final Project</p>

@@ -26,15 +26,15 @@ function inject_data(fname){
         return {
             "Country": data["Country"],
             // "Year": parseInt(data.Year),
-            "Wildfire": parseFloat(data.Wildfire),
+            "Flood": parseFloat(data["Flood"]),
+            "Mass movement": parseFloat(data["Mass movement"]),
             // "Drought": parseFloat(data["Drought"]),
             // "Extreme temperature": parseFloat(data["Extreme temperature"]),
-            // "Volcanic eruption": parseFloat(data["Volcanic eruption"]),
-            "Mass movement": parseFloat(data["Mass movement"]),
+            "Volcanic eruption": parseFloat(data["Volcanic eruption"]),
             "Earthquake": parseFloat(data.Earthquake),
-            "Flood": parseFloat(data["Flood"]),
+            "Wildfire": parseFloat(data.Wildfire),
             "Storm": parseFloat(data.Storm),
-            "AvgIDP": parseFloat(data["Average IDP of all"])          
+            "AvgIDP": parseFloat(parseFloat(data["Average IDP of all"]).toFixed(2))          
         };
     });    
 }
