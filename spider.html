@@ -21,8 +21,8 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a class="on-page" href="spider.html">Internal Displacement</a></li>
-                    <li><a href="sankey.html">Australia PR Migration</a></li>
+                    <li><a class="on-page" href="spider.html#viz">Internal Displacement</a></li>
+                    <li><a href="sankey.html#sankey-here">Australia PR Migration</a></li>
                 </ul>
             </nav>
             <br>
@@ -32,19 +32,22 @@
 
         </header>
         <script>DrawData();</script>
-        <label for="valueInput">First Country</label>
-        <select id="valueInput" onchange="addValue()"></select>
+        <!-- <label for="valueInput">First Country</label>
+        <select id="valueInput" onchange="addValue()"></select> -->
         
         <br/>
-        <label for="valueInput2">Second Country</label>
-        <select id="valueInput2" onchange="addValue2()"></select>
+        <div id="select-container">
+            <label for="valueInput2">Comparison Country</label>
+            <select id="valueInput2" onchange="addValue2()">
+            </select>
+        </div>
+
+        <div id="tooltip" class="tool">tooltip here</div>
+        <div id="comp-tooltip" class="tool">compare</div>
+        <br/>
         
         
         <svg id="viz"></svg>
-        <br/>
-        
-        // code section
-
 
         <footer>
             <p class="caption boldnice">COS30045 Data Vis - Final Project</p>

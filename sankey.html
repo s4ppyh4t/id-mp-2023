@@ -24,8 +24,8 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="spider.html">Internal Displacement</a></li>
-                    <li><a class="on-page" href="sankey.html">Australia PR Migration</a></li>
+                    <li><a href="spider.html#viz">Internal Displacement</a></li>
+                    <li><a class="on-page" href="sankey.html#sankey-here">Australia PR Migration</a></li>
                 </ul>
             </nav>
             <br>
@@ -182,7 +182,7 @@
                 // =============== THE LINKS =========================
                 // ===================================================
                 
-                // The linearGradient elements lol
+                // The linearGradient elements to define gradient colors for the links
                 svg.append("defs")
                     .selectAll("linearGradient")
                     .data(sankeyData.links)
@@ -266,7 +266,11 @@
                 //     .style("opacity", (d) => (d.y1 - d.y0 < 40 ? 0 : 1));
 
                 console.log(d3.selectAll(".node"));
- 
+                
+
+                // ===============================================================================
+                // ========================Hovering Time for nodes================================
+                // ===============================================================================
                 d3.selectAll('.node').on("mouseover", (event, d) => {
                     let selLinks = d3.selectAll(".linkage").filter((link) => {
                         
@@ -288,6 +292,17 @@
                     // .ease(d3.easeLinear)
                     .attr('stroke-opacity', '0.4')
                 })
+
+                // ===============================================================================
+                // =====================For the links (to previous links)=========================
+                // ===============================================================================
+                links.on("mouseover", (event, d) => {
+                    let prevSelLinks = d3.selectAll(".linkage").filter((link) => {
+                        
+                    })
+                })
+
+
                 
 
             });     // End tag of the WHOLE DATA INJECTION STUFF PLZ REMEMBER HOLY SHIT <========================

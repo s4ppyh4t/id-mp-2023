@@ -10,8 +10,9 @@
 // }
 
 
-function inject_data(file_name){
-    let f_name = "data/" + file_name
+function inject_data(fname){
+    let file_name = fname;
+    let f_name = "../data/" + file_name;
     return d3.csv(f_name, function(data) 
     {
         // return {
@@ -24,15 +25,16 @@ function inject_data(file_name){
         // };
         return {
             "Country": data["Country"],
-            // "Year": data.Year,
+            // "Year": parseInt(data.Year),
             "Wildfire": parseFloat(data.Wildfire),
-            "Drought": parseFloat(data["Drought"]),
-            "Extreme temperature": parseFloat(data["Extreme temperature"]),
-            "Volcanic eruption": parseFloat(data["Volcanic eruption"]),
+            // "Drought": parseFloat(data["Drought"]),
+            // "Extreme temperature": parseFloat(data["Extreme temperature"]),
+            // "Volcanic eruption": parseFloat(data["Volcanic eruption"]),
             "Mass movement": parseFloat(data["Mass movement"]),
             "Earthquake": parseFloat(data.Earthquake),
             "Flood": parseFloat(data["Flood"]),
-            "Storm": parseFloat(data.Storm)          
+            "Storm": parseFloat(data.Storm),
+            "AvgIDP": parseFloat(data["Average IDP of all"])          
         };
     });    
 }
