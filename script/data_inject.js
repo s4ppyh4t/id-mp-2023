@@ -12,7 +12,7 @@
 
 function inject_data(fname){
     let file_name = fname;
-    let f_name = "../data/" + file_name;
+    let f_name = "data/" + file_name;
     return d3.csv(f_name, function(data) 
     {
         // return {
