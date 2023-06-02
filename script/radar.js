@@ -30,7 +30,7 @@ function addValue2() {
         DrawData(country_filter);
     }
     document.getElementById("cur-country").innerHTML = value;
-    
+    d3.select('#table-country').html(value);
     // console.log(country_filter);
 }
 
@@ -80,21 +80,38 @@ function DrawData() {
         }
 
         console.table(byCountry_data);
-        
-        // ---------------------------------------------------------------------------
-        // ------------- THE MAXIMUM VALUE OF ALL HAHAHAHAHAHAHHA --------------------
-        // ---------------------------------------------------------------------------
+        console.table(country_filter);
+        // =======================================================
+        // Let's populate the details table
+        inject_data("conformed_spider_value.csv").then( function(countryValue) {
 
-        // I use reduce() function to take out the maximum value of number of Internally Displaced People (IDP) at all-time period
-        // var max_val = cat_features.reduce( function(max, feature) {
+            let ausData = countryValue.find(item => item.Country==="Australia")
+            
+            d3.select('#aus-flood').html(d3.format(',')(ausData.Flood))
+            d3.select('#aus-mass').html(d3.format(',')(ausData['Mass movement']))
+            d3.select('#aus-vol').html(d3.format(',')(ausData['Volcanic eruption']))
+            d3.select('#aus-earth').html(d3.format(',')(ausData.Earthquake))
+            d3.select('#aus-wild').html(d3.format(',')(ausData.Wildfire))
+            d3.select('#aus-storm').html(d3.format(',')(ausData.Storm))
+            
+            if (country_filter.length > 1 && country_filter[1] != "Country") {
+                let conData = countryValue.find(item => item.Country===country_filter[1])
+                d3.select('#con-flood').html(d3.format(',')(conData.Flood))
+                d3.select('#con-mass').html(d3.format(',')(conData['Mass movement']))
+                d3.select('#con-vol').html(d3.format(',')(conData['Volcanic eruption']))
+                d3.select('#con-earth').html(d3.format(',')(conData.Earthquake))
+                d3.select('#con-wild').html(d3.format(',')(conData.Wildfire))
+                d3.select('#con-storm').html(d3.format(',')(conData.Storm))
 
-        //     let max_here = d3.max(byCountry_data, (d) => d[feature]);
-        //     if (max_here > max) { return max_here;}
-        //     else { return max;}
-        // }, 0)
-        
-        // console.log(max_val);   // make sure I got that right
-
+            } else{
+                d3.select('#con-flood').html(0);
+                d3.select('#con-mass').html(0);
+                d3.select('#con-vol').html(0);
+                d3.select('#con-earth').html(0);
+                d3.select('#con-wild').html(0);
+                d3.select('#con-storm').html(0);
+            }
+        })
 
         // -------------------------------------------------------
         // ---------- LET'S START DRAWING AHAHAHHAHA -------------
@@ -113,12 +130,12 @@ function DrawData() {
                             .domain([0, 1])
                             .range([0, 200])
                             .clamp(false);
-        // console.log(max_val);
               
         
         // ===========================================================================
         // ===============The GRID CIRCLES --=========================================
-        // ===========================================================================
+        // ===========================================================================     
+        
         let ticks = [0, 0.25, 0.50, 0.75, 1.00];
         // console.log(ticks); // I GOT THE TICKS
 
@@ -129,7 +146,9 @@ function DrawData() {
             .attr("class", "grid-circle")
             .attr("cx", width / 2)
             .attr("cy", height / 2)
-            .attr("r", 0);
+            .attr("r", 0)
+            .append("title")
+            .text("This percentage represents the percentile ranking of\na country's specific IDP compared to other countries'\nwithin the same disaster class");
             
 
             svg.selectAll(".grid-circle")
@@ -156,7 +175,8 @@ function DrawData() {
             .style("opacity", 0)
             .attr("x", (d) => width / 2 + radarScale(d) + 25)   // 25 seems to be the sweet point for anchoring the tick labels
             .attr("y", height / 2)
-            .style("font-size", "1.2vw")
+            .style("font-size", "1.2vw");
+            
             
 
             svg.selectAll(".ticklabel")
@@ -210,6 +230,7 @@ function DrawData() {
             .attr("y", d => d.label_coord[1])
             .attr("class", "axislabel")
             .text(d => d.name)
+            .attr("value", d => d.name)
             .style("font-weight", "bold")
             .style("font-size", "20px")
             .style("opacity", 1);
@@ -225,12 +246,25 @@ function DrawData() {
             .attr("x", d => d.label_coord[0])
             .attr("y", d => d.label_coord[1])
             .text(d => d.name)
+            .attr("value", d => d.name)
             .style("font-weight", "bold")
             .style("font-size", "20px")
             .style("opacity", 1);
         };
 
-        // let line = d3.line();
+        
+        
+        // ===========================================================================
+        // ====================Drawing the ACTUAL DATA RADAR path=====================
+        // ===========================================================================
+        
+        // console.log("by country data", byCountry_data)
+        // ================================================
+        // use this space to sort the higher at the bottom
+        if (country_filter.length > 1) {
+            if ((byCountry_data[0].AvgIDP < byCountry_data[1].AvgIDP) && byCountry_data[1].Country != "Cuba") { byCountry_data.push(byCountry_data[0]); byCountry_data.shift()} else{ byCountry_data = byCountry_data};
+        }
+        
         let line = d3.line().curve(d3.curveCatmullRom);
         
         function getPathCoordinates(data_point){
@@ -244,9 +278,6 @@ function DrawData() {
             return coordinates;
         }
 
-        // ===========================================================================
-        // ====================Drawing the ACTUAL DATA RADAR path=====================
-        // ===========================================================================
 
         if (country_filter.length > 1) {
             
@@ -262,25 +293,14 @@ function DrawData() {
                 .attr("id", (d, i) => "path" + i)
                 .attr("d", line)
                 .attr("stroke-width", 3)
-                .attr("stroke", (_, i) => colors[i])
-                .attr("fill", (_, i) => colors[i])
-                .attr("fill-opacity", 0.25)
-                .attr("stroke-opacity", 1)
+                .attr("stroke", (_,i) => { if (byCountry_data[0].Country == "Australia") { return colors[i]} else {return  colors[Math.abs(i-1)]}} )
+                .attr("fill", (_, i) => { if (byCountry_data[0].Country == "Australia") { return colors[i]} else {return  colors[Math.abs(i-1)]}})
+                .style("fill-opacity", 0.1)
+                .style("stroke-opacity", 1)
                 .attr("value", (_, i) => byCountry_data[i].Country);
                 
-                // svg.selectAll(".legends")
-                // .data(byCountry_data)
-                // .enter()
-                // .append("text")
-                // .attr("class", "legends")
                 
-                // svg.selectAll(".legends")
-                // .transition()
-                // .attr("x", 10)
-                // .attr("y", (_, i) => 30*(i+1))
-                // .attr("fill",(_, i) => colors[i])
-                // .text((d, i) => { if (country_filter[i] != "None") { return country_filter[i]} else { return ""}} )
-                // .attr("font-size","24px");
+                
             } else {
                 
             svg.selectAll("path")
@@ -293,23 +313,12 @@ function DrawData() {
                 .attr("id", (d, i) => "path" + i)
                 .attr("d", line)
                 .attr("stroke-width", 3)
-                .attr("stroke", (_, i) => colors[i])
-                .attr("fill", (_, i) => colors[i])
-                .attr("fill-opacity", 0.25)
-                .attr("stroke-opacity", 1)
+                .attr("stroke", (d, i) => { if (byCountry_data[0].Country == "Australia") { return colors[i]} else {return  colors[Math.abs(i-1)]}})
+                .attr("fill", (d, i) => { if (byCountry_data[0].Country == "Australia") { return colors[i]} else {return  colors[Math.abs(i-1)]}})
+                .style("fill-opacity", 0.1)
+                .style("stroke-opacity", 1)
                 .attr("value", (_, i) => byCountry_data[i].Country);
-            
-                // svg.selectAll(".legends")
-                // .data(byCountry_data)
-                // .enter()
-                // .append("text")
-                // .attr("class", "legends")
-                // .transition(0.5)
-                // .attr("x", 10)
-                // .attr("y", (_, i) => 30*(i+1))
-                // .attr("fill",(_, i) => colors[i])
-                // .text((d, i) => { if (country_filter[i] != "None") { return country_filter[i]} else { return ""}} )
-                // .attr("font-size","24px");
+
             }    
 
 
@@ -335,7 +344,7 @@ function DrawData() {
             .enter()
             .append('circle')
             .attr("class", (d,i) => {
-                if (i < 5 ) { return "dot-0 data-dot"}
+                if (i < cat_features.length ) { return "dot-0 data-dot"}
                 else { return "dot-1 data-dot"}
             })
         
@@ -345,7 +354,7 @@ function DrawData() {
             .attr("cx", d => d[0])
             .attr("cy", d => d[1])
             .attr("r", 5)
-            .attr("fill", (d,i) => { if (i < cat_features.length) {return colors[0];} else {return colors[1]}})
+            .attr("fill", (d,i) => { if (byCountry_data[0].Country == "Australia") { if (i < cat_features.length) {return colors[0];} else {return colors[1]}} else { if (i < cat_features.length) {return colors[1];} else {return colors[0]}} })
             .attr("opacity", 0.5);
             
         } else {
@@ -357,7 +366,7 @@ function DrawData() {
             .transition()
             // .delay(250)
             .attr("class", (d,i) => {
-                if (i < 5 ) { return "dot-0 data-dot"}
+                if (i < cat_features.length ) { return "dot-0 data-dot"}
                 else { return "dot-1 data-dot"}
             })
             .attr("cx", d => d[0])
@@ -389,6 +398,7 @@ function DrawData() {
             .enter()
             .append('text')
             .attr("class", (d,i) => {
+                
                 if (i < cat_features.length ) { return "text-0 data-text"}
                 else { return "text-1 data-text"}
             })
@@ -437,129 +447,102 @@ function DrawData() {
        // ===========================================================================
        // ================Let's try to do the Tooltips===============================
        // ===========================================================================
+       // Update #2: Turning tooltips
         let tooltip = d3.select("#tooltip");
-        let comp_tooltip = d3.select("#comp-tooltip");
+        // let comp_tooltip = d3.select("#comp-tooltip");       // we don't need this anymore
 
-        d3.selectAll("path")
+        // d3.selectAll("path")        // we will now change this to "axislabel"
+        d3.selectAll(".axislabel")        // our new selection for tooltip
         //   .transition()
-          .on("mouseover", function(event) { 
+        .on("mouseover", function(event) { 
+            d3.selectAll(".grid-circle").style("opacity", 0.1); // make the spider grids less visible
+            d3.selectAll(".ticklabel").style("opacity", 0.1);
+            d3.selectAll("path").style("opacity", 0.1);
+            d3.selectAll(".data-dot").style("opacity", 0.1);
+            
+            d3.selectAll(".axislabel").style("opacity", 0.1);   // turn all labels less visible first
+            d3.select(this).style("opacity", 1)         // Set the currently selected axis label opacity to 1 (visible)
+            
+            tooltip.style("opacity", 1);        // make tooltip visible now
+
+            // console.log(this);                      // check if it's retrieving the label or not
+            
+            populateTooltip(tooltip, this);
+        })
+        .on("mouseout", () => { 
+                    tooltip.style("opacity", 0);               // on mouseout, hide both tooltips
+
+                    d3.selectAll("path").style("opacity", 1);                // return the spider paths to its original opacity              
+                    d3.selectAll(".grid-circle").style("opacity", 1);       // also for the grid circle, the axis labels, tick labels
+                    d3.selectAll(".axislabel").style("opacity", 1); 
+                    d3.selectAll(".ticklabel").style("opacity", 0.5); 
+                    d3.selectAll(".data-text").style("opacity", 0);         // ... for the data text to disappear off-hover and data-dot to return to half-transparent
+                    d3.selectAll(".data-dot").style("opacity", 0.5)})
+
+        .on("mousemove", function(event) {
+            // Australia's tooltip
+            tooltip.style("left", () => {
+                return (width/2 - 52) + "px";
+            }) 
+            .style("bottom", (document.documentElement.clientHeight/2 - 120) + "px")
+        })
+
+        
+        // Populate the tooltip texts with relevant data
+        function populateTooltip(tooltip, label) {
+
+            d3.csv("data/spider_label_description.csv").then( (data) => {
+                
+                tooltip.html( () => {    
+                    let labelName = label.getAttribute("value");
+                    let labelData = data.filter( function(b) { return b.label == labelName })[0];
+                    console.log(data);
+                    return `
+                        <h2>${labelName}</h2>
+                        <p style="text-align: justify;">${labelData.desc}</p>
+                        
+                    `;
+                })
+            })
+        }
+
+        // =================================
+        // set hovering effect for the texts
+        d3.selectAll("path")
+          .on("mouseover", function(event, d) {
+            console.log(this);
+            if (this.getAttribute("id") === "path0") {
+                d3.selectAll(".text-0").style("opacity", 1);
+                d3.selectAll("#path0").style("fill-opacity", 0.4);
+                d3.selectAll("#path1").style("opacity", 0.2);
+                d3.selectAll(".dot-0").style("opacity", 0.8);
+                d3.selectAll(".dot-1").style("opacity", 0.1);
+
+            } else {
+                d3.selectAll(".text-1").style("opacity", 1);
+                d3.selectAll("#path1").style("fill-opacity", 0.4);
+                d3.selectAll("#path0").style("opacity", 0.2);
+                d3.selectAll(".dot-1").style("opacity", 0.8);
+                d3.selectAll(".dot-0").style("opacity", 0.1);
+            } 
+            // fade every other element out
             d3.selectAll(".grid-circle").style("opacity", 0.1);
             d3.selectAll(".axislabel").style("opacity", 0.1);
             d3.selectAll(".ticklabel").style("opacity", 0.1);
             
-
-            if (this.getAttribute("value") === "Australia") { tooltip.style("opacity", 1); d3.selectAll(".text-0").style("opacity", 1)}
-            else { tooltip.style("opacity", 0.2);}
-            populateTooltip(tooltip, document.querySelector("#path0"));
-            if (country_filter.length > 1) {
-                if (this.getAttribute("value") === "Australia") { tooltip.transition().style("opacity", 1); comp_tooltip.transition().style("opacity", 0.2);d3.selectAll(".text-0").style("opacity", 1)}
-                else { tooltip.transition().style("opacity", 0.2); comp_tooltip.transition().style("opacity", 1); d3.selectAll(".text-1").style("opacity", 1)}
-                populateTooltip(comp_tooltip, document.querySelector("#path1"));    
-            }
-            d3.selectAll("path").attr("opacity", 0.2);
-            this.setAttribute("opacity", 1)
+            
         })
-          .on("mouseout", () => { tooltip.transition().style("opacity", 0);comp_tooltip.transition().style("opacity", 0);d3.selectAll("path").attr("opacity", 1);d3.selectAll(".tool").attr("opacity", 1);d3.selectAll(".grid-circle").style("opacity", 1);d3.selectAll(".axislabel").style("opacity", 1); d3.selectAll(".ticklabel").style("opacity", 0.5); d3.selectAll(".data-text").style("opacity", 0)})
-          .on("mousemove", function(event) {
-            // Australia's tooltip
-            tooltip.style("left", () => {
-                if ( event.clientX < width/2) {
-                    // return event.pageX - 250 + "px"
-                    // deal with the tooltip going out of the page => start from the edge
-                    return (event.pageX <= 0) ? event.pageX - 250 + "px" : 10 + "px";
-
-
-                } else { 
-                    return event.pageX + 20 + "px"
-                }
-            }) 
-            .style("bottom", (document.documentElement.clientHeight - event.pageY) + "px")
+        .on("mouseout", function(event) {
+            d3.selectAll(".data-text").style('opacity', 0);
+            d3.selectAll("path").style("opacity", 1).style("fill-opacity", 0.1);
             
-            // Comparison country's tooltip
-            comp_tooltip.style("left", () => {
-                if ( event.clientX < width/2) {
-                    return (event.pageX <= 0) ? event.pageX + 40 + "px" : 320 + "px";
-                } else { 
-                    return event.pageX + 330 + "px"
-                }
-               }) 
-               .style("bottom", (document.documentElement.clientHeight - event.pageY) + "px")
-            
+            d3.selectAll(".data-dot").style("opacity", 0.5);
+            d3.selectAll(".grid-circle").style("opacity", 1);
+            d3.selectAll(".axislabel").style("opacity", 1);
+            d3.selectAll(".ticklabel").style("opacity", 0.5);
+
           })
-
         
-        // Populate the tooltip texts with relevant data
-        function populateTooltip(tooltip, path) {
-
-            inject_data("conformed_spider_value.csv").then( (data) => {
-                tooltip.html( () => {
-                    let pathCountry = path.getAttribute("value");
-
-                    // Set the colors for the tooltip
-                    if (path.getAttribute("id") == "path0") {tooltip.style("color", colors[0])} else { tooltip.style("color", colors[1])}
-    
-                    let countryData = data.find(obj => obj.Country === pathCountry);
-                    let percenData = byCountry_data.find(obj => obj.Country === pathCountry);
-
-                    console.log(percenData);
-                    return `
-                        <h2>${countryData.Country}</h2>
-                        <p><em>Internally Displaced Population</em> (IDP)</p>
-                        <p>----------------------------</p>
-                        <table style="color: black" class="tooltip-table">
-                            <thead>
-                                <tr>
-                                    <th><p>Disaster</p><p>Category</p></th>
-                                    <th><p>People migrated</p><p>(Percentile Ranking)</p></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Flood</td> 
-                                    <td>${d3.format(',')(countryData.Flood)} (${d3.format('.2%')(percenData.Flood)})</td>
-                                </tr>
-                                <tr>
-                                <td>Mass movement</td> 
-                                <td>${d3.format(',')(countryData["Mass movement"])} (${d3.format('.2%')(percenData["Mass movement"])})</td>
-                                </tr>
-                                <tr>
-                                    <td>Volcanic Eruption</td> 
-                                    <td>${d3.format(',')(countryData['Volcanic eruption'])} (${d3.format('.2%')(percenData['Volcanic eruption'])})</td>
-                                </tr>
-                                <tr>
-                                    <td>Earthquake</td> 
-                                    <td>${d3.format(',')(countryData.Earthquake)} (${d3.format('.2%')(percenData.Earthquake)})</td>
-                                </tr>
-                                <tr>
-                                    <td>Wildfire</td> 
-                                    <td>${d3.format(',')(countryData.Wildfire)} (${d3.format('.2%')(percenData.Wildfire)})</td>
-                                </tr>
-                                <tr>
-                                    <td>Storm</td> 
-                                    <td>${d3.format(',')(countryData.Storm)} (${d3.format('.2%')(percenData.Storm)})</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    `;
-                })
-                
-                // =====================================================
-                // =============Always raise the smaller on top=========
-                // =====================================================
-
-                // I'm pretty proud of myself cuz of this section hahahah
-                if (country_filter.length > 1) {
-                    let val1 = document.querySelector("#path0").getAttribute("value");
-                    let val2 = document.querySelector("#path1").getAttribute("value");
-                    let countryData1 = data.find(obj => obj.Country === val1).AvgIDP;
-                    let countryData2 = data.find(obj => obj.Country === val2).AvgIDP;
-                    if ((countryData1 < countryData2) && (!["Lao PDR", "Cuba"].includes(val2))) {
-                        d3.select("#path0").raise();
-                    } else { d3.select("#path1").raise();}
-                }
-            })
-        }
-
 
         // ===========================================================
         // ==============moving the whole svg around hehe=============

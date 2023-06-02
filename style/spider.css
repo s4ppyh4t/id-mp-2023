@@ -41,20 +41,18 @@
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 20%;
+    height: 15%;
     /* border: 1px solid black; */
 }
 
 path{
     filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.5));
-    stroke-opacity: 0.8;
-    fill-opacity: 0.05;
 }
 
-path:hover{
+/* path:hover{
     stroke-opacity: 1;
     fill-opacity: 0.3;
-}
+} */
 
 .legends{
     stroke: black;
@@ -65,11 +63,15 @@ path:hover{
     filter: drop-shadow(0 0 4px gray);
 }
 
+/* make data dots unhoverable */
+.data-dot, .data-text{
+    pointer-events: none;
+}
 /* This is for tooltip styling hehehehe */
-#tooltip, #comp-tooltip {
+#tooltip{
     position: absolute;
     border: 1px solid black;
-    line-height: 1px;
+    /* line-height: 1px; */
     border-radius: 15px;
     padding: 1vw;
     background-color: aliceblue;
@@ -77,10 +79,12 @@ path:hover{
     transition: left 0.2s;
     pointer-events: none;
     font-size: 0.9em;
+    width: 15%;
     /* transition: top 0.2s ease; */
 }
 
-table#tooltip-table {
+/* Deprecated section */
+/* table#tooltip-table {
     border-collapse: collapse;
     width: 100%;
     border-radius: 10px;
@@ -93,7 +97,7 @@ border-bottom: 1px solid #ddd;
 }
 th {
 background-color: #d8d8d8;
-}
+} */
 
 /* Here's the bigger flex-box with the title */
 main {
@@ -105,7 +109,7 @@ main {
 
 main div{
     /* border: 1px black solid; */
-    width: 80%;
+    width: 85%;
 }
 
 /* Flex box for organising the view */
@@ -113,15 +117,15 @@ main div{
     display: flex;
     margin: auto;
     justify-content: center;
-    /* padding: 2vw; */
+    padding: 2vw;
 }
 
 #right-content {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    justify-content:center;
+    align-items:center;
 }
 
 
@@ -141,3 +145,90 @@ svg{
     flex: 1;
 }
 
+#desc-holder{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* border: 1px solid black; */
+}
+
+#desc-holder .tab {
+    /* flex: 1; */
+    border: 2px solid gray;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+    background-color: white;
+    width: 100%;
+}
+
+/* Similar to the element up there */
+#desc-holder .desc-content {
+    flex: 1;
+    display:flex;
+    margin:auto;
+    width: 100%;
+}
+
+button {
+    background-color: transparent;
+    flex: 1;
+    border-radius: 2px;
+    border:none;
+    font-family: inherit;
+    /* width: 35%; */
+}
+
+button:hover {
+    background-color: gray;
+}
+
+button.selected {
+    background-color: rgb(81, 161, 232);
+}
+
+
+/* Now to style the content blocks */
+.content-block {
+    flex:1;
+    width: 100%;
+    text-align: justify;
+    height: 100%;
+    overflow: auto;
+}
+
+table#detail-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+th, td {
+padding: 8px;
+text-align: justify;
+border: 2px solid #ddd;
+border-radius: 2px;
+background-color: rgb(183, 183, 183);
+text-align: left;
+}
+th {
+background-color: #d8d8d8;
+}
+
+
+/* path, .axislabel, .data-dot{
+    display:none;
+} */
+
+#manual-content{
+    max-height: 300px;
+    max-width: 500px;
+    /* overflow-y: auto; */
+}
+
+#manual-content img{
+    display: block;
+    width: 460px;
+}
