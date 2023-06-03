@@ -3,7 +3,7 @@ function wrap(text) {
       var text = d3.select(this),
           words = text.text().split(/\s+/).reverse(),
           word,
-          width = 150
+          width = 120
           line = [],
           lineNumber = 0,
           lineHeight = 1.1, // ems

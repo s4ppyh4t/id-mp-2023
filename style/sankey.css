@@ -17,15 +17,14 @@ svg{
     margin:auto;
 }
 
-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f0f0f0;
+#temp-tt {
+    font-size: 12px;
+    pointer-events: none;
+    font-style: ;
 }
 
-main div{
-    width: 85%;   
-    margin: auto;
 
+.content-block {
+    width: 70%;
+    text-align: justify;
 }

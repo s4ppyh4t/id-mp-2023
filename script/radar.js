@@ -174,7 +174,7 @@ function DrawData() {
             .style("opacity", 0)
             .attr("x", (d) => width / 2 + radarScale(d) + 25)   // 25 seems to be the sweet point for anchoring the tick labels
             .attr("y", height / 2)
-            .style("font-size", "1.2vw");
+            .style("font-size", "16px");
             
             
 
@@ -484,9 +484,9 @@ function DrawData() {
         .on("mousemove", function(event) {
             // Australia's tooltip
             tooltip.style("left", () => {
-                return (width/2 - 52) + "px";
+                return (width/2 - 58) + "px";
             }) 
-            .style("bottom", (document.documentElement.clientHeight/2 - 120) + "px")
+            .style("top", (document.documentElement.clientHeight/2) + "px")
         })
 
         

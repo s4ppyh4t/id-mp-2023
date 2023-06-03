@@ -22,6 +22,7 @@
     </head>
     <body>
         <header id="top">
+            <h1>DATA VISUALISATION PROJECT - TEAM 11</h1>
             <!-- <h2></h2> -->
             <nav>
                 <ul>
@@ -38,7 +39,7 @@
         
         <main>              
             <script>DrawData();</script>
-            <div id="title">
+            <div class="viz-title">
                 <h2>Is <i style="color: green" id="cur-country">Country</i> more susceptible to Natural Disaster Displacement than <i style="color: red">Australia</i>?</h2>
                 <p class="caption">Data period: 2008 - 2021. Only shows countries with Internally Displaced Population of over 10k people</p>
             </div>
@@ -59,6 +60,7 @@
                         });
                     </script>
 
+                    <br/>   
                     <div class="flex-item" id="desc-holder">
                         <div class="tab">
                             <button onclick="changeView('manual-btn', 'manual-content')" class="link" id="manual-btn">How to Read</button>
@@ -66,10 +68,10 @@
                             <button onclick="changeView('detail-btn', 'detail-content')" class="link" id="detail-btn">Detail</button>
                         </div>
                         <div class="desc-content">
-                            <div id="summary-content" class="content-block"><br/>Internal displacement population (or IDP) migration data provides insights into displacement patterns caused by six most impactful (measured in IDP): <em>floods, mass movements, volcanic eruptions,&nbsp;</em><em>earthquakes,</em><em>&nbsp;storms, and wildfires.&nbsp;</em>Analyzing this data helps understand the impacts on different countries.&nbsp;<br><br>The visualised data filters out countries with <strong>less than 10,000 displacements (people)</strong> which allows a <strong>better focus on regions needing immediate attention and possible support</strong>, which is then compared with the existing metrics of Australia.&nbsp;<br><br>By <strong>ranking countries in different disaster categories based on percentile ranks&nbsp;</strong>(presented as percentages), it is possible to identify&nbsp;<strong>relative scale of IDPs within different regions</strong>.&nbsp;<br><br><em style="font-size: 10px;">For example, Australia&apos;s Internally Displaced Population caused by Mass Movement is within 40.70% percentile ranking, meaning that such displaced population is greater than 40.70% other countries&apos;, within the same of Hazard Type of Mass Movement.</em><br/><br/><em style="font-size: 10px;">Data retrieved from <a href="https://www.abs.gov.au/statistics/people/people-and-communities/permanent-migrants-australia/2021#australian-citizenship">ABS (2021)</a> and <a href="https://www.internal-displacement.org/database/displacement-data">IDMC Portal (2022)</a></em></div>
+                            <div id="summary-content" class="content-block"><br/>Internal displacement population (or IDP) migration data provides insights into displacement patterns caused by six most impactful (measured in IDP): <em>floods, mass movements, volcanic eruptions,&nbsp;</em><em>earthquakes,</em><em>&nbsp;storms, and wildfires.&nbsp;</em>Analyzing this data helps understand the impacts on different countries.&nbsp;<br><br>The visualised data filters out countries with <strong>less than 10,000 displacements (people)</strong> which allows a <strong>better focus on regions needing immediate attention and possible support</strong>, which is then compared with the existing metrics of Australia.&nbsp;<br><br>By <strong>ranking countries in different disaster categories based on percentile ranks&nbsp;</strong>(presented as percentages), it is possible to identify&nbsp;<strong>relative scale of IDPs within different regions</strong>.&nbsp;<br/><br/><em style="font-size: 10px;">Data retrieved from <a href="https://www.internal-displacement.org/database/displacement-data">IDMC Portal (2022)</a></em></div>
                                 
                             <div id="detail-content" class="content-block">
-                                <h2>Internally Displaced Population details</h2>
+                                <h3 style="margin: 0;">Internally Displaced Population details</h3>
                                 <em>visualised data represented in "percentile ranking" within a Hazard Type, tabular detailed data presented below in unit of IDP.</em>
                                 <br/><br/>
                                 <table id="detail-table" style="table-layout: fixed;">
@@ -124,12 +126,12 @@
 
                             </div>
                             <div id="manual-content" class="content-block">
-                                <img src="resources/nice-01.png" alt="How To Read document">
+                                <img src="resources/htr-01.png" alt="How To Read document">
                             </div>
                         </div>
                     </div>
                     <script>
-                        changeView('manual-btn', 'manual-content');
+                        changeView('summary-btn', 'summary-content');
                     </script>
                 </div>
             </div>  

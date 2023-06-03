@@ -1,7 +1,7 @@
 html{
     font-family:monospace;
     color: rgb(0, 0, 0);
-    font-size:medium;
+    font-size: 14px;
     background-color: aliceblue;
 }
 
@@ -20,8 +20,29 @@ header{
 
 }
 
-#main-sec{
-    padding:2vh 10vw;
+body{
+    /* width: 100%; */
+    margin: auto;
+    min-width: 1300px;
+    max-width: 1400px;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    justify-content: center;
+}
+
+main div{
+    width: 85%;   
+    /* margin: auto; */
+
+}
+
+.viz-title {
+    width: 70%;
 }
 
 .centre{
@@ -56,4 +77,54 @@ footer{
 header h1{
     font-family:'Courier New', Courier, monospace;
     text-align: left;
+}
+
+
+::-webkit-scrollbar {
+    width: 12px; /* Adjust the width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #fffffff4;
+    border-radius: 10px; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #b1b1b1; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Adjust the border radius to make it round */
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flex-container > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .flex-container > div > div {
+    flex-basis: 50%;
+  }
+
+  .flex-container > div > div.img-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .flex-container > div > div.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+.thumbnail:hover {
+    opacity: 0.5;
+}
+
+.thumbnail {
+    border: 1px solid gray;
 }
