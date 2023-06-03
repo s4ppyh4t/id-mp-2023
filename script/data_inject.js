@@ -8,6 +8,7 @@
 //         return csv_data
 //     })
 // }
+// let hazardName = ['Flood', 'Mass movement', 'Volcanic eruption', 'Earthquake', 'Wildfire', 'Storm']
 
 
 function inject_data(fname){
@@ -23,6 +24,7 @@ function inject_data(fname){
         //     "Flood": parseFloat(data["Flood"]),
         //     "Storm": parseFloat(data.Storm)          
         // };
+
         return {
             "Country": data["Country"],
             // "Year": parseInt(data.Year),

@@ -45,7 +45,7 @@
     /* border: 1px solid black; */
 }
 
-path{
+.data-path{
     filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.5));
 }
 
@@ -208,7 +208,7 @@ table#detail-table {
 th, td {
 padding: 8px;
 text-align: justify;
-border: 2px solid #ddd;
+border: 2px solid #8d8d8d;
 border-radius: 2px;
 background-color: rgb(183, 183, 183);
 text-align: left;
@@ -223,12 +223,34 @@ background-color: #d8d8d8;
 } */
 
 #manual-content{
-    max-height: 300px;
-    max-width: 500px;
+    max-height: 350px;
     /* overflow-y: auto; */
 }
 
 #manual-content img{
     display: block;
+    margin: auto;
     width: 460px;
+}
+
+.category-arc, .category-text{
+    /* filter: blur(2px); */
+    opacity: 0.3;
+    font-size: 17px;
+}
+
+.hydro {
+    background-color: blue;
+    color: whitesmoke;
+}
+
+.geo {
+    background-color: rgb(165, 97, 42);
+    color: whitesmoke;
+}
+
+.meteo {
+    background-color: orange;
+    color: whitesmoke;
+
 }

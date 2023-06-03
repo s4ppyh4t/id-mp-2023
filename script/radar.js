@@ -1,5 +1,5 @@
 let country_filter = ["Australia"];
-let colors = ["#ff073a", "green"];
+let colors = ["#e31a1c", "#33a02c"];
 let delay_baseline = 50;
             
 
@@ -129,8 +129,7 @@ function DrawData() {
         let radarScale = d3.scaleLinear()
                             .domain([0, 1])
                             .range([0, 200])
-                            .clamp(false);
-              
+                            .clamp(false);         
         
         // ===========================================================================
         // ===============The GRID CIRCLES --=========================================
@@ -281,13 +280,13 @@ function DrawData() {
 
         if (country_filter.length > 1) {
             
-            svg.selectAll("path")
+            svg.selectAll(".data-path")
                 .data(byCountry_data)
                 .enter()
                 .append("path")
-                
-                svg.selectAll("path")
                 .attr("class", "data-path")
+                
+                svg.selectAll(".data-path")
                 .datum(d => getPathCoordinates(d))
                 .transition()
                 .attr("id", (d, i) => "path" + i)
@@ -303,13 +302,13 @@ function DrawData() {
                 
             } else {
                 
-            svg.selectAll("path")
+            svg.selectAll(".data-path")
                 .data(byCountry_data)
                 .enter()
                 .append("path")
+                .attr("class", "data-path") 
                 .datum(d => getPathCoordinates(d))
                 .transition(0.5)
-                .attr("class", "data-path") 
                 .attr("id", (d, i) => "path" + i)
                 .attr("d", line)
                 .attr("stroke-width", 3)
@@ -457,12 +456,13 @@ function DrawData() {
         .on("mouseover", function(event) { 
             d3.selectAll(".grid-circle").style("opacity", 0.1); // make the spider grids less visible
             d3.selectAll(".ticklabel").style("opacity", 0.1);
-            d3.selectAll("path").style("opacity", 0.1);
+            d3.selectAll(".data-path").style("opacity", 0.1);
             d3.selectAll(".data-dot").style("opacity", 0.1);
             
             d3.selectAll(".axislabel").style("opacity", 0.1);   // turn all labels less visible first
             d3.select(this).style("opacity", 1)         // Set the currently selected axis label opacity to 1 (visible)
-            
+            d3.selectAll('.cat').style('opacity', 0.1);
+
             tooltip.style("opacity", 1);        // make tooltip visible now
 
             // console.log(this);                      // check if it's retrieving the label or not
@@ -472,12 +472,14 @@ function DrawData() {
         .on("mouseout", () => { 
                     tooltip.style("opacity", 0);               // on mouseout, hide both tooltips
 
-                    d3.selectAll("path").style("opacity", 1);                // return the spider paths to its original opacity              
+                    d3.selectAll(".data-path").style("opacity", 1);                // return the spider paths to its original opacity              
                     d3.selectAll(".grid-circle").style("opacity", 1);       // also for the grid circle, the axis labels, tick labels
                     d3.selectAll(".axislabel").style("opacity", 1); 
                     d3.selectAll(".ticklabel").style("opacity", 0.5); 
                     d3.selectAll(".data-text").style("opacity", 0);         // ... for the data text to disappear off-hover and data-dot to return to half-transparent
-                    d3.selectAll(".data-dot").style("opacity", 0.5)})
+                    d3.selectAll(".data-dot").style("opacity", 0.5);
+                    d3.selectAll('.cat').style('opacity', 0.3);
+                })
 
         .on("mousemove", function(event) {
             // Australia's tooltip
@@ -508,7 +510,7 @@ function DrawData() {
 
         // =================================
         // set hovering effect for the texts
-        d3.selectAll("path")
+        d3.selectAll(".data-path")
           .on("mouseover", function(event, d) {
             console.log(this);
             if (this.getAttribute("id") === "path0") {
@@ -529,20 +531,59 @@ function DrawData() {
             d3.selectAll(".grid-circle").style("opacity", 0.1);
             d3.selectAll(".axislabel").style("opacity", 0.1);
             d3.selectAll(".ticklabel").style("opacity", 0.1);
-            
+            d3.selectAll('.cat').style('opacity', 0.1)
             
         })
         .on("mouseout", function(event) {
             d3.selectAll(".data-text").style('opacity', 0);
-            d3.selectAll("path").style("opacity", 1).style("fill-opacity", 0.1);
+            d3.selectAll(".data-path").style("opacity", 1).style("fill-opacity", 0.1);
             
             d3.selectAll(".data-dot").style("opacity", 0.5);
             d3.selectAll(".grid-circle").style("opacity", 1);
             d3.selectAll(".axislabel").style("opacity", 1);
             d3.selectAll(".ticklabel").style("opacity", 0.5);
+            d3.selectAll('.cat').style('opacity', 0.3);
 
           })
         
+        
+            // Draw some identifying arcs
+            const arcGen = (i) => d3.arc()
+            .innerRadius(radarScale(1))
+            .outerRadius(radarScale(1.06))
+            .startAngle(2*i*Math.PI/3 )
+            .endAngle((Math.PI + 2*i*Math.PI)/3) 
+
+            let catColor = ["blue", "rgb(165, 97, 42)", "orange"];
+            let catColorDark = ["#000066", "rgb(124, 70, 31)", "#cc6600"];
+            
+            let catGroup = svg.insert('g', ':first-child').attr('id', 'cat-group');
+
+            d3.selectAll('.cat').remove();
+
+            ["Hydrological","Geological","Meteorological"].forEach( function(val, index) {
+                console.log(val);
+                catGroup.append("path")
+                .attr("class", "category-arc cat")
+                .attr("id", `arc-${index}`)
+                .attr("transform", `translate(${width/2}, ${height/2})`)
+                .attr("d", arcGen(index))
+                .attr("fill", catColor[index]);
+                
+                catGroup.append("text")
+                .append("textPath")
+                .attr("id", `arct-${index}`)
+                .attr('class', 'category-text cat')
+                .attr("href", `#arc-${index}`)
+                .style('font-family', 'monospace')
+                .style('font-weight', 'bold')
+                .attr('text-anchor', 'middle')
+                .attr('startOffset', '25%')
+                .text(val)
+                .attr('fill', catColorDark[index])
+                .style('transform', "scale(+1,-1)");
+        })
+ 
 
         // ===========================================================
         // ==============moving the whole svg around hehe=============

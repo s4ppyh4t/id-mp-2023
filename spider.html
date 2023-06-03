@@ -27,20 +27,20 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a class="on-page" href="spider.html#viz">Internal Displacement</a></li>
-                    <li><a href="sankey.html#sankey-here">Australia PR Migration</a></li>
+                    <li><a href="sankey.html">Australia PR Migration</a></li>
                 </ul>
             </nav>
             
             
         </header>
         
-        <br/><br/>
+        <br/>
         
         <main>              
             <script>DrawData();</script>
             <div id="title">
-                <h2>Which country's population is most susceptible to Natural Disaster Displacement? <br/><i style="color: red">Australia</i> vs <i style="color: green" id="cur-country">Country</i></h2>
-                <!-- <p class="caption">Data period: 2008 - 2021. Only shows countries with IDP migration of over 10k people</p> -->
+                <h2>Is <i style="color: green" id="cur-country">Country</i> more susceptible to Natural Disaster Displacement than <i style="color: red">Australia</i>?</h2>
+                <p class="caption">Data period: 2008 - 2021. Only shows countries with Internally Displaced Population of over 10k people</p>
             </div>
             <div id="box">
                 <svg class="flex-item" id="viz"><g id="svg-group"></g></svg>
@@ -87,35 +87,35 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Flood</td> 
-                                            <td id="aus-flood"></td>
-                                            <td id="con-flood"></td>
+                                            <td class="hydro">Flood</td> 
+                                            <td class="hydro" id="aus-flood"></td>
+                                            <td class="hydro" id="con-flood"></td>
                                         </tr>
                                         <tr>
-                                            <td>Mass movement</td> 
-                                            <td id="aus-mass"></td>
-                                            <td id="con-mass"></td>
+                                            <td class="hydro">Mass movement</td> 
+                                            <td class="hydro" id="aus-mass"></td>
+                                            <td class="hydro" id="con-mass"></td>
                                             
                                         </tr>
                                         <tr>
-                                            <td>Volcanic Eruption</td> 
-                                            <td id="aus-vol"></td>
-                                            <td id="con-vol"></td>
+                                            <td class="geo">Volcanic Eruption</td> 
+                                            <td class="geo" id="aus-vol"></td>
+                                            <td class="geo" id="con-vol"></td>
                                         </tr>
                                         <tr>
-                                            <td>Earthquake</td> 
-                                            <td id="aus-earth"></td>
-                                            <td id="con-earth"></td>
+                                            <td class="geo">Earthquake</td> 
+                                            <td class="geo" id="aus-earth"></td>
+                                            <td class="geo" id="con-earth"></td>
                                         </tr>
                                         <tr>
-                                            <td>Wildfire</td> 
-                                            <td id="aus-wild"></td>
-                                            <td id="con-wild"></td>
+                                            <td class="meteo">Wildfire</td> 
+                                            <td class="meteo" id="aus-wild"></td>
+                                            <td class="meteo" id="con-wild"></td>
                                         </tr>
                                         <tr>
-                                            <td>Storm</td> 
-                                            <td id="aus-storm"></td>
-                                            <td id="con-storm"></td>
+                                            <td class="meteo">Storm</td> 
+                                            <td class="meteo" id="aus-storm"></td>
+                                            <td class="meteo" id="con-storm"></td>
                                         </tr>
                                     </tbody>
                                 </table>
