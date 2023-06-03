@@ -1,0 +1,155 @@
+html{
+    font-family:monospace;
+    color: rgb(0, 0, 0);
+    font-size:medium;
+    background-color: aliceblue;
+    
+}
+
+/* * { */
+    /* border: 1px solid black; */
+/* } */
+
+h2 {
+    margin-bottom: 0; 
+}
+
+header{
+    padding:0.5vh 10vw;
+    text-align:left;
+    background-color:aliceblue;
+
+}
+
+#main-sec{
+    padding:2vh 10vw;
+}
+
+.centre{
+    text-align: center;
+}
+
+
+.bold{
+    font-weight: bold;
+}
+
+.boldnice{
+    font-style:italic;
+    font-weight: bold;
+}
+
+header{
+    text-align:left;
+    background-color:aliceblue;
+}
+
+footer{
+    text-align:center;
+    background-color:aliceblue;
+    color:rgb(0, 85, 57);
+    position:relative;
+    text-align: center;
+    padding: 10px;
+
+}
+
+header h1{
+    font-family:'Courier New', Courier, monospace;
+    text-align: left;
+}
+/* Make changes on 3Jun2023 */
+
+h3{
+    text-align: center;
+}
+article {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    /* width: 80%; */
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.myContainer {
+    flex: 1;
+    padding: 20px;
+    /* border: 0.5px solid #9f9f9f; */
+    border-radius: 5px;
+    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+    box-sizing: content-box;
+    margin: auto;
+    margin-bottom: 30px;
+}
+.container{
+    border: 0.5px solid #9f9f9f;
+    padding: 20px;
+    background-color: rgb(150, 191, 228);
+    text-decoration: none; 
+    color: inherit; 
+    width: 45%;
+}
+
+.container:hover {
+    transform: scale(1.05);
+    transition: transform .3s;
+}
+
+#idp{
+    /* border: 0.5px solid #9f9f9f;
+    padding: 20px; */
+    margin-right: 20px;
+}
+
+#migration {
+    /* border: 0.5px solid #9f9f9f;
+    padding: 20px; */
+    margin-left: 20px;
+} 
+.learn-more-btn {
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #007BFF;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.learn-more-btn:hover {
+    background-color: rgb(81, 161, 232);
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+    .container {
+        max-width: 540px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    .container {
+        max-width: 720px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    .container {
+        max-width: 1140px;
+    }
+}

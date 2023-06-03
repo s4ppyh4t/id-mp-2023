@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Data Visualisation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style/spider.css">
+        <link rel="stylesheet" href="style/general.css">
+        <link rel="stylesheet" href="style/nav.css">
+        <script src="https://d3js.org/d3.v7.min.js"></script>    
+        <!-- <script src="eight_two.js"></script> -->
+        <script src="script/radar.js"></script>
+        <script src="script/data_inject.js"></script>
+        <script src="script/fill_option.js"></script>
+        <script src="script/change_view.js"></script>
+        
+        <!-- We would definitely go THIS FAR to get our <select> tag works as we wished -->    
+        <script src="plugins/jquery.min.js"></script>
+        <script src="plugins/select2.min.js"></script>
+        <link href="style/select2.min.css" rel="stylesheet" />
+        <title>TEST Spider chart</title>
+    </head>
+    <body>
+        <header id="top">
+            <!-- <h2></h2> -->
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a class="on-page" href="spider.html#viz">Internal Displacement</a></li>
+                    <li><a href="sankey.html">Australia PR Migration</a></li>
+                </ul>
+            </nav>
+            
+            
+        </header>
+        
+        <br/>
+        
+        <main>              
+            <script>DrawData();</script>
+            <div id="title">
+                <h2>Is <i style="color: green" id="cur-country">Country</i> more susceptible to Natural Disaster Displacement than <i style="color: red">Australia</i>?</h2>
+                <p class="caption">Data period: 2008 - 2021. Only shows countries with Internally Displaced Population of over 10k people</p>
+            </div>
+            <div id="box">
+                <svg class="flex-item" id="viz"><g id="svg-group"></g></svg>
+                <div class="flex-item" id="right-content">
+                    <div class="" id="select-container">
+                        <!-- <button onclick="document.querySelector('#valueInput2').selectedIndex -= 1"><</button> -->
+                        <strong style="text-align: center; width: 30%; display: block" class="flex-item">Country for comparison</strong>
+                        <select class="flex-item select2" id="valueInput2" onchange="addValue2()">
+                        </select>
+                        <!-- <button onclick="document.querySelector('#valueInput2').selectedIndex += 1">></button> -->
+                    </div>
+
+                    <script>
+                        $(document).ready(function() {
+                          $('.select2').select2();
+                        });
+                    </script>
+
+                    <div class="flex-item" id="desc-holder">
+                        <div class="tab">
+                            <button onclick="changeView('manual-btn', 'manual-content')" class="link" id="manual-btn">How to Read</button>
+                            <button onclick="changeView('summary-btn', 'summary-content')" class="link selected" id="summary-btn">Background</button>
+                            <button onclick="changeView('detail-btn', 'detail-content')" class="link" id="detail-btn">Detail</button>
+                        </div>
+                        <div class="desc-content">
+                            <div id="summary-content" class="content-block"><br/>Internal displacement population (or IDP) migration data provides insights into displacement patterns caused by six most impactful (measured in IDP): <em>floods, mass movements, volcanic eruptions,&nbsp;</em><em>earthquakes,</em><em>&nbsp;storms, and wildfires.&nbsp;</em>Analyzing this data helps understand the impacts on different countries.&nbsp;<br><br>The visualised data filters out countries with <strong>less than 10,000 displacements (people)</strong> which allows a <strong>better focus on regions needing immediate attention and possible support</strong>, which is then compared with the existing metrics of Australia.&nbsp;<br><br>By <strong>ranking countries in different disaster categories based on percentile ranks&nbsp;</strong>(presented as percentages), it is possible to identify&nbsp;<strong>relative scale of IDPs within different regions</strong>.&nbsp;<br><br><em style="font-size: 10px;">For example, Australia&apos;s Internally Displaced Population caused by Mass Movement is within 40.70% percentile ranking, meaning that such displaced population is greater than 40.70% other countries&apos;, within the same of Hazard Type of Mass Movement.</em><br/><br/><em style="font-size: 10px;">Data retrieved from <a href="https://www.abs.gov.au/statistics/people/people-and-communities/permanent-migrants-australia/2021#australian-citizenship">ABS (2021)</a> and <a href="https://www.internal-displacement.org/database/displacement-data">IDMC Portal (2022)</a></em></div>
+                                
+                            <div id="detail-content" class="content-block">
+                                <h2>Internally Displaced Population details</h2>
+                                <em>visualised data represented in "percentile ranking" within a Hazard Type, tabular detailed data presented below in unit of IDP.</em>
+                                <br/><br/>
+                                <table id="detail-table" style="table-layout: fixed;">
+                                    <colgroup>
+                                        <col style="width: 33%;">
+                                        <col style="width: 33%;">
+                                        <col style="width: 33%;">
+                                      </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2">Hazard Type</th>
+                                            <th><span style="color: #ff073a">Australia</span><br/>IDPs (person)</th>
+                                            <th><span style="color: green" id="table-country">Country</span><br/>IDPs (person)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="hydro">Flood</td> 
+                                            <td class="hydro" id="aus-flood"></td>
+                                            <td class="hydro" id="con-flood"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hydro">Mass movement</td> 
+                                            <td class="hydro" id="aus-mass"></td>
+                                            <td class="hydro" id="con-mass"></td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td class="geo">Volcanic Eruption</td> 
+                                            <td class="geo" id="aus-vol"></td>
+                                            <td class="geo" id="con-vol"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="geo">Earthquake</td> 
+                                            <td class="geo" id="aus-earth"></td>
+                                            <td class="geo" id="con-earth"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="meteo">Wildfire</td> 
+                                            <td class="meteo" id="aus-wild"></td>
+                                            <td class="meteo" id="con-wild"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="meteo">Storm</td> 
+                                            <td class="meteo" id="aus-storm"></td>
+                                            <td class="meteo" id="con-storm"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                            <div id="manual-content" class="content-block">
+                                <img src="resources/nice-01.png" alt="How To Read document">
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        changeView('manual-btn', 'manual-content');
+                    </script>
+                </div>
+            </div>  
+        </main>      
+
+        <div id="tooltip" class="tool">tooltip here</div>
+        <!-- <div id="comp-tooltip" class="tool">compare</div> -->
+        <br/>
+        
+
+        <footer>
+            <p class="caption boldnice">COS30045 Data Vis - Final Project</p>
+            <p class="caption">Semester 1 2023</p>
+        </footer>
+        
+    </body>
+</html>

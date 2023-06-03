@@ -1,0 +1,44 @@
+nav {
+    background-color: rgb(150, 191, 228); /* Set the background color */
+    border-radius: 10px; /* Add rounded corners */
+    display: flex; /* Use flexbox to fill the entire nav area */
+    align-items: center; /* Vertically center the links */
+}
+  
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex; /* Use flexbox to position the links horizontally */
+    justify-content: space-between; /* Add space between the links */
+    flex: 1; /* Make the list fill the remaining space */
+}
+  
+nav ul li {
+    flex: 1; /* Make each list item fill the remaining space */
+}
+  
+nav ul li a {
+    display: block;
+    border-radius: 10px; /* Add rounded corners */
+    color: whitesmoke;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+nav ul li a:hover {
+    background-color: #555;
+}
+  
+.on-page{
+    background-color: rgb(81, 161, 232);
+}
+
+/* make changes on 3June2023 */
+#headerImg {
+    background-image: url(../resources/people.jpg);
+    background-size: cover;
+    padding: 20px; 
+    height: 250px;
+}

@@ -1,0 +1,31 @@
+/* .linkage:hover {
+    stroke-opacity: 0.9;
+} */
+
+.linkage{
+    transition: stroke-opacity 0.1s ease-in-out;
+}
+
+/* Set this so hovering through the node labels won't interupt the node mouseover event */
+.node-label{
+    pointer-events: none;
+}
+
+svg{
+    /* border: 1px black solid; */
+    display: block;
+    margin:auto;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+main div{
+    width: 85%;   
+    margin: auto;
+
+}
