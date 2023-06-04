@@ -20,12 +20,12 @@
     </head>
     <body>
         <header id="top">
-            <h1>Internal Displacement and Migration Patterns</h1>
+            <h1>Internal Displacement and Migration Patterns - a zoom-in on Australia</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="spider.html">Internal Displacement</a></li>
-                    <li><a class="on-page" href="sankey.html">Australia PR Migration</a></li>
+                    <li><a href="spider.html">Internal Displacement Population</a></li>
+                    <li><a class="on-page" href="sankey.html">Migration Pattern</a></li>
                 </ul>
             </nav>
             <br/>
@@ -44,7 +44,8 @@
 <p>Each item/node element represents the quantity of migrants (number of people) from such regions, visa streams and destination state/territory relative to one another.<br/><br/><em style="font-size: 10px;">Data retrieved from <a href="https://www.abs.gov.au/statistics/people/people-and-communities/permanent-migrants-australia/2021#australian-citizenship">ABS (2021)</a></em></p>
                 </div>
                 <br/>
-                <div id="sankey-here"></div>
+                <div id="sankey-here"></div>    
+                <!-- <button onclick="resetNodes()">reset nodes</button> -->
 
                 <script>
                     sankeyDraw();

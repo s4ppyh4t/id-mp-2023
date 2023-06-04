@@ -177,8 +177,19 @@ function sankeyDraw() {
             .attr("y", (d) => d.y0)
             .attr("fill", (d) => colorScale(d.name))
             .attr("height", (d) => d.y1 - d.y0)
-            .attr("width", (d) => d.x1 - d.x0);
+            .attr("width", (d) => d.x1 - d.x0)
+            
+            // below is the dragging function that we have not yet able to contain
+            
+            // .call(d3.drag()
+            //     .subject(function(d) { return d; })
+            //     .on("start", function() { 
+            //         this.parentNode.appendChild(this); })
+            //     .on("drag", dragmove));
+            ;
+
         
+
         // ===================================================
         // =============== THE LINKS =========================
         // ===================================================
@@ -218,6 +229,29 @@ function sankeyDraw() {
                 return d.width;
             })
             // .text( (d) => `${d.source.name} to ${d.target.name}:\n${d.value} people`)
+        
+            // the function for moving the nodes
+            // UNUSED
+        function dragmove(event, d) {
+            var rectY = d3.select(this).attr("y");
+            var rectX = d3.select(this).attr("x");
+            // d.y0 = d.y0 + event.dy;
+            // d.y1 = d.y1 + event.dy;
+            
+            console.log(d.x0);
+            d.x1 = d.x1 + event.dx;
+            d.x0 = d.x0 + event.dx;
+            // var yTranslate = d.y0 - rectY;
+            var yTranslate = 0;
+            var xTranslate = d.x0 - rectX;
+            // var xTranslate = 0;
+            d3.select(this).attr('transform', "translate(" + (xTranslate) + "," + (yTranslate) + ")");
+            sankeyViz.update(sankeyData);
+            links.attr('d', d3.sankeyLinkHorizontal());
+            d3.selectAll('.node-label').data(sankeyData.nodes);
+            d3.selectAll('.node-label').filter( (label) => label.index === d.index).attr('transform', `translate(${xTranslate}, ${yTranslate})`);
+          };
+
 
         // ===================================================
         // ===================================================                      
@@ -382,4 +416,9 @@ function sankeyDraw() {
     
 
 
+}
+
+function resetNodes() {
+    d3.select('svg').remove();
+    sankeyDraw();
 }
