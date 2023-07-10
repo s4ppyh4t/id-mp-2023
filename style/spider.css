@@ -1,0 +1,246 @@
+.axis path,
+.axis line {
+    stroke:#061A40;
+    shape-rendering:crispEdges;
+    stroke-width: 2px;
+}
+
+.axis text {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 10px;
+    fill: #061A40;
+}
+
+#valueInput2 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 16px;
+    width: 60%;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+
+#valueInput2:hover {
+    background-color: aliceblue;
+
+}
+
+#valueInput2::-ms-expand {
+    display: none;
+}
+
+#select-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 12%;
+    /* border: 1px solid black; */
+}
+
+.data-path{
+    filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.5));
+}
+
+/* path:hover{
+    stroke-opacity: 1;
+    fill-opacity: 0.3;
+} */
+
+.legends{
+    stroke: black;
+    stroke-width: 0.2;
+}
+
+.grid-circle {
+    filter: drop-shadow(0 0 4px gray);
+}
+
+/* make data dots unhoverable */
+.data-dot, .data-text{
+    pointer-events: none;
+}
+/* This is for tooltip styling hehehehe */
+#tooltip{
+    position: absolute;
+    border: 1px solid black;
+    /* line-height: 1px; */
+    border-radius: 15px;
+    padding: 1vw;
+    background-color: aliceblue;
+    opacity: 0;
+    transition: left 0.2s;
+    pointer-events: none;
+    font-size: 0.9em;
+    width: 15%;
+    /* transition: top 0.2s ease; */
+}
+
+/* Deprecated section */
+/* table#tooltip-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+th, td {
+padding: 8px;
+text-align: justify;
+border-bottom: 1px solid #ddd;
+}
+th {
+background-color: #d8d8d8;
+} */
+
+/* Flex box for organising the view */
+#box {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    padding: 2vw;
+}
+
+#right-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items:center;
+}
+
+
+
+svg{
+    /* border: 1px black solid; */
+    /* Width and Height attributes need to conform with the svg settings (or rather define it instead) */
+    /* background-color:rgb(255, 254, 248); */
+}
+
+#svg-group {
+    transform: scale(1);
+    transform-origin: center center;
+}
+
+.flex-item {
+    flex: 1;
+}
+
+#desc-holder{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* border: 1px solid black; */
+}
+
+#desc-holder .tab {
+    /* flex: 1; */
+    border: 2px solid gray;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+    background-color: white;
+    width: 100%;
+    height: 30px;
+}
+
+/* Similar to the element up there */
+#desc-holder .desc-content {
+    flex: 1;
+    display:flex;
+    margin:auto;
+    width: 100%;
+}
+
+button {
+    background-color: transparent;
+    flex: 1;
+    border-radius: 2px;
+    border:none;
+    font-family: inherit;
+    /* width: 35%; */
+}
+
+button:hover {
+    background-color: gray;
+}
+
+button.selected {
+    background-color: rgb(81, 161, 232);
+}
+
+
+/* Now to style the content blocks */
+.content-block {
+    flex:1;
+    width: 100%;
+    text-align: justify;
+    height: 340px;
+    padding: 2px;
+    overflow: auto;
+    border-bottom: 2px solid gray;
+}
+
+table#detail-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    overflow: auto;
+  }
+th, td {
+padding: 8px;
+text-align: justify;
+border: 2px solid #8d8d8d;
+border-radius: 2px;
+background-color: rgb(183, 183, 183);
+text-align: left;
+}
+th {
+background-color: #d8d8d8;
+}
+
+
+/* #path0, .dot-0, .ticklabel, .axislabel{
+    display:none;
+} */
+
+#manual-content{
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+#manual-content img{
+    display: block;
+    margin: auto;
+    width: 460px;
+}
+
+.category-arc, .category-text{
+    /* filter: blur(2px); */
+    opacity: 0.3;
+    font-size: 17px;
+}
+
+.hydro {
+    background-color: blue;
+    color: whitesmoke;
+}
+
+.geo {
+    background-color: rgb(165, 97, 42);
+    color: whitesmoke;
+}
+
+.meteo {
+    background-color: orange;
+    color: whitesmoke;
+
+}

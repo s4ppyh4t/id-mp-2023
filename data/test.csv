@@ -1,0 +1,49 @@
+source,target,value
+Australian citizen,Central and Southern Asia,489373
+Not an Australian citizen,Central and Southern Asia,273310
+Australian citizen,Eastern and South-Eastern Asia,453508
+Not an Australian citizen,Eastern and South-Eastern Asia,498219
+Australian citizen,Europe and Northern America,375707
+Not an Australian citizen,Europe and Northern America,238759
+Australian citizen,Latin America and Caribbean,38556
+Not an Australian citizen,Latin America and Caribbean,26397
+Australian citizen,Middle East and North Africa,959
+Not an Australian citizen,Middle East and North Africa,362
+Australian citizen,Northern Africa and Western Asia,119768
+Not an Australian citizen,Northern Africa and Western Asia,81504
+Australian citizen,Oceania,90294
+Not an Australian citizen,Oceania,43024
+Australian citizen,Sub-Saharan Africa,178461
+Not an Australian citizen,Sub-Saharan Africa,69866
+Central and Southern Asia,Skilled,536654
+Central and Southern Asia,Other permanent,50
+Central and Southern Asia,Humanitarian,69458
+Central and Southern Asia,Family,158204
+Eastern and South-Eastern Asia,Skilled,511461
+Eastern and South-Eastern Asia,Other permanent,227
+Eastern and South-Eastern Asia,Humanitarian,36359
+Eastern and South-Eastern Asia,Family,405860
+Europe and Northern America,Skilled,374041
+Europe and Northern America,Other permanent,720
+Europe and Northern America,Humanitarian,10517
+Europe and Northern America,Family,230711
+Latin America and Caribbean,Skilled,33723
+Latin America and Caribbean,Other permanent,46
+Latin America and Caribbean,Humanitarian,843
+Latin America and Caribbean,Family,30372
+Middle East and North Africa,Skilled,3244
+Middle East and North Africa,Other permanent,49
+Middle East and North Africa,Humanitarian,2236
+Middle East and North Africa,Family,7156
+Northern Africa and Western Asia,Skilled,39044
+Northern Africa and Western Asia,Other permanent,11
+Northern Africa and Western Asia,Humanitarian,105412
+Northern Africa and Western Asia,Family,46188
+Oceania,Skilled,99754
+Oceania,Other permanent,101
+Oceania,Humanitarian,5934
+Oceania,Family,28001
+Sub-Saharan Africa,Skilled,154347
+Sub-Saharan Africa,Other permanent,12
+Sub-Saharan Africa,Humanitarian,47921
+Sub-Saharan Africa,Family,47193

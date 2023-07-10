@@ -8,10 +8,13 @@
 //         return csv_data
 //     })
 // }
+// let hazardName = ['Flood', 'Mass movement', 'Volcanic eruption', 'Earthquake', 'Wildfire', 'Storm']
 
 
-function inject_data(file_name){
-    return d3.csv(file_name, function(data) 
+function inject_data(fname){
+    let file_name = fname;
+    let f_name = "data/" + file_name;
+    return d3.csv(f_name, function(data) 
     {
         // return {
         //     "Country": data["Country"],
@@ -21,16 +24,19 @@ function inject_data(file_name){
         //     "Flood": parseFloat(data["Flood"]),
         //     "Storm": parseFloat(data.Storm)          
         // };
+
         return {
             "Country": data["Country"],
-            "Wildfire": parseFloat(data.Wildfire),
-            "Drought": parseFloat(data["Drought"]),
-            "Extreme temperature": parseFloat(data["Extreme temperature"]),
-            "Volcanic eruption": parseFloat(data["Volcanic eruption"]),
-            "Mass movement": parseFloat(data["Mass movement"]),
-            "Earthquake": parseFloat(data.Earthquake),
+            // "Year": parseInt(data.Year),
             "Flood": parseFloat(data["Flood"]),
-            "Storm": parseFloat(data.Storm)          
+            "Mass movement": parseFloat(data["Mass movement"]),
+            // "Drought": parseFloat(data["Drought"]),
+            // "Extreme temperature": parseFloat(data["Extreme temperature"]),
+            "Volcanic eruption": parseFloat(data["Volcanic eruption"]),
+            "Earthquake": parseFloat(data.Earthquake),
+            "Wildfire": parseFloat(data.Wildfire),
+            "Storm": parseFloat(data.Storm),
+            "AvgIDP": parseFloat(parseFloat(data["Average IDP of all"]).toFixed(2))          
         };
     });    
 }

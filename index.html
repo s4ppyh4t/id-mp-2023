@@ -4,39 +4,84 @@
         <meta charset="utf-8">
         <meta name="description" content="Data Visualisation">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="style/spider.css">
+        <link rel="stylesheet" href="style/general.css">
+        <link rel="stylesheet" href="style/nav.css">
         <script src="https://d3js.org/d3.v7.min.js"></script>    
         <!-- <script src="eight_two.js"></script> -->
-        <script src="radar.js"></script>
-        <script src="data_inject.js"></script>
-        <script src="fill_option.js"></script>
-        <title>TEST Spider chart</title>
+        <script src="script/radar.js"></script>
+        <script src="script/data_inject.js"></script>
+        <script src="script/fill_option.js"></script>
+        
+        <!-- for number formatting -->
+        <script src="https://cdn.jsdelivr.net/npm/d3-format@3"></script>   
+        <title>Data Visualisation Project</title>
+        
     </head>
     <body>
         <header id="top">
-            <h1>Internal Displacement Population by Top 100 Countries - Global vs Australia</h1>
+            <h1 id="headerImg" title="Image from Vecteezy.com">Internal Displacement and Migration Patterns - a zoom-in on Australia</h1>
             <!-- <h2></h2> -->
-            <p class="caption">Data period: 2008 - 2021</p>
-        </header>
-        <script>DrawData();</script>
-        <label for="valueInput">First Country</label>
-        <select id="valueInput" onchange="addValue()"></select>
-        
-        <br/>
-        <label for="valueInput2">Second Country</label>
-        <select id="valueInput2" onchange="addValue2()"></select>
-        
-        
-        <svg id="viz"></svg>
-        <br/>
-        
-        // code section
-
-
+            <nav>
+                <ul>
+                    <li><a class="on-page" href="index.html">Home</a></li>
+                    <li><a href="spider.html">Internal Displacement Population</a></li>
+                    <li><a href="sankey.html">Migration Pattern</a></li>
+                </ul>
+            </nav>
+            <br/>
+            <!-- <h2>Background</h2> -->
+            </header>
+            
+                <div class = "myContainer" style= "width: 77%;">
+                    
+                    <p>Migration is a natural and inevitable aspect of human history.
+                        In the current globalized world, international migration has 
+                        become more common. In 2020 alone, according to the World Migration 
+                        Report, there were 281 million international migrants, or 3.6 
+                        percent of the world's population. There are both push factors 
+                        and pull factors resulting in cross-border migration. 
+                        
+                        <br/><br/>On the former, 
+                        internal displacement has been one of the key. Promising economic benefits 
+                        and living conditions are high on the list for the pull factors. However, many have been
+                        forced to leave the comfort of their home due to extreme natural hazards.
+                        
+                        <br/><br/>Our mission is to deliver the recorded data from <b>Australian Bureau of Statistics (2021)</b> and <b>Internal
+                         Displacement Monitoring Centre (2022)</b> that represents the mentioned topic, with a strong focus on Australia,
+                         it's position amongst other countries in IDP measures and the flow of migration to Australia within the past 2 decades.
+                    </p>
+                    <br/>
+                    <article>
+                        
+                            <section id="idp" class="container">
+                                <h3 style="text-align: center;">Internal Displacement Population<br/></h3>
+                                <hr>
+                                <img src="resources/radar-thumbnail-02.png" alt="bruh" width="100%" height="150px" style="object-fit: cover;">
+                                <p>
+                                    Internally Displaced Population profile data visualised between Australia vs. Other countries. Data retrieved from 2000 - 2022 globally.
+                                </p>
+                                <a href="spider.html" class="learn-more-btn">Learn More</a>
+                                
+                            </section>
+                            
+                            
+                            
+                            <section id="migration"  class="container">
+                                <h3 style="text-align: center;">Migration Patterns</h3>
+                                <hr>
+                                <img src="resources/sankey-thumbnail-02.png" alt="bruh" width="100%" height="150px" style="object-fit: cover;">
+                                <p>Migration Pathways from origin regions, through visa streams, to destination state/territory in Australia in the last ~20 years</p>
+                                    <a href="sankey.html" class="learn-more-btn">Learn More</a>
+                            </section>
+                        
+                    </article>
+                </div>               
+             
         <footer>
-            <p class="caption boldnice">COS30045 Data Vis - <a href="../8.1/index.html">to 8.1</a></p>
-            <p class="caption">Semester 1 2023</p>
+            <p class="caption boldnice">COS30045 Data Vis - Final Project - Semester 1 2023</p>
+            <p class="caption">Tevy Tunsay - Duc Tung Nguyen (Team 11)</p>
+            <!-- <p class="caption">Semester 1 2023</p> -->
         </footer>
-        
     </body>
 </html>

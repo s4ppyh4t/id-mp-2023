@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Data Visualisation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Test Sankey Chart</title>        
+        <link rel="stylesheet" href="style/sankey.css">
+        <link rel="stylesheet" href="style/general.css">
+        <link rel="stylesheet" href="style/nav.css">
+        <script src="https://d3js.org/d3.v7.min.js"></script>    
+        <script src="script/sankey.js"></script>    
+        <!-- <script src="eight_two.js"></script> -->
+        <!-- <script src="script/data_inject.js"></script> -->
+        
+        <!-- importing sankey plugin from Mike Bostock - ObservableHQ -->
+        <script src="plugins/d3-sankey.min.js"></script>    
+        <script src="plugins/text-wrap.js"></script>
+        
+    </head>
+    <body>
+        <header id="top">
+            <h1>Internal Displacement and Migration Patterns - a zoom-in on Australia</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="spider.html">Internal Displacement Population</a></li>
+                    <li><a class="on-page" href="sankey.html">Migration Pattern</a></li>
+                </ul>
+            </nav>
+            <br/>
+        </header>
+        <br/>
+        <body>
+            <main>
+                <div class="viz-title">
+                    <h2>How are people <i>permanently migrating</i> to Australia in the past two decades?</h1>
+                    <p class="caption">Data period: 2000 - 8/2021</p>
+                </div>
+                <div class="content-block">
+                    <h3>Background</h3>
+                    The visualisation below describes flow of migrants&apos; pathways to Australia, starting from their <span style="color: green;"><strong>departure</strong></span> from different regions, their application through different visa streams and their final <span style="color: red;"><strong>destination</strong></span> in specific States and Territories in Australia as <strong>permanent residences (PR)</strong>.
+                    <br/><br/>People from other continents have migrated to Australia. The World Migration Report 2022 from International Organisation for Migration indicates that the country is of the 10 top destinations for international migration. According to the data from the Australian Bureau of Statistics (ABS), in the year ending 30 June 2022, overseas migration contributed a net gain of 171,000 to Australia's population. This represents a very large increase in net overseas migration on the 2020-21 financial year.
+<p>Each item/node element represents the quantity of migrants (number of people) from such regions, visa streams and destination state/territory relative to one another.<br/><br/><em style="font-size: 10px;">Data retrieved from <a href="https://www.abs.gov.au/statistics/people/people-and-communities/permanent-migrants-australia/2021#australian-citizenship">ABS (2021)</a></em></p>
+                </div>
+                <br/>
+                <div id="sankey-here"></div>    
+                <!-- <button onclick="resetNodes()">reset nodes</button> -->
+
+                <script>
+                    sankeyDraw();
+
+                </script>
+
+
+            </main> 
+        </body>
+
+        <footer>
+            <p class="caption boldnice">COS30045 Data Vis - Final Project - Semester 1 2023</p>
+            <p class="caption">Tevy Tunsay - Duc Tung Nguyen (Team 11)</p>
+        </footer>
+    </body>
+</html>
